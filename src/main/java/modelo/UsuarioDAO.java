@@ -2,6 +2,8 @@ package modelo;
 
 import config.Conexion;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioDAO extends Conexion {
 
@@ -11,7 +13,7 @@ public class UsuarioDAO extends Conexion {
         String sql = "SELECT R.ROL, U.IDUSUARIO, P.IDPERSONA, P.NOMBRES, P.APELLIDOS FROM persona P "
                 + "INNER JOIN usuario U ON U.IDPERSONA = P.IDPERSONA INNER JOIN rol R ON R.IDROL = P.IDROL "
                 + "WHERE u.usuario = '" + usuario.getUsuario() + "' AND "
-                + "u.clave = '" + usuario.getClave() + "'";
+                + "u.clave = '" + usuario.getClave() + "' AND U.ESTADO = 1";
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -23,7 +25,8 @@ public class UsuarioDAO extends Conexion {
                 usu.getPersona().setNombres(rs.getString("NOMBRES"));
                 usu.getPersona().setApellidos(rs.getString("APELLIDOS"));
                 usu.getPersona().setRol(new Rol());
-                usu.getPersona().getRol().setRol(rs.getString("ROL"));               
+                usu.getPersona().getRol().setRol(rs.getString("ROL"));
+                usu.setEstado(true);
 
             }
         } catch (Exception e) {
@@ -34,128 +37,126 @@ public class UsuarioDAO extends Conexion {
         return usu;
     }
 
-//    public List<Usuario> listarUsuarios() throws Exception {
-//        List<Usuario> usuarios;
-//        Usuario usu;
-//        ResultSet rs;
-//        String sql = "SELECT U.id_usuario, U.nombre_usuario, U.clave, "
-//                + "U.vigencia, E.nombres, E.apellidos FROM usuario U "
-//                + "INNER JOIN empleado E on U.empleado_id = E.id_empleado";
-//        try {
-//            this.conectar(false);
-//            rs = this.ejecutarOrdenDatos(sql);
-//            usuarios = new ArrayList<>();
-//            while (rs.next() == true) {
-//                usu = new Usuario();
-//                usu.setIdLogin(rs.getInt("id_usuario"));
-//                usu.setUsuario(rs.getString("nombre_usuario"));
-//                usu.setClave(rs.getString("clave"));
-//                usu.setVigencia(rs.getBoolean("vigencia"));
-//                usu.setNombres(rs.getString("nombres") + " " + (rs.getString("apellidos")));
-//                usuarios.add(usu);
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//        return usuarios;
-//    }
-//
-//    public List<Empleado> listarEmpleadosSinLogin() throws Exception {
-//        List<Empleado> empleado;
-//        Empleado emp;
-//        ResultSet rs;
-//        String sql = "SELECT E.id_empleado, E.nombres, E.apellidos "
-//                + "FROM empleado E WHERE NOT EXISTS(SELECT * FROM usuario U WHERE U.empleado_id=E.id_empleado)";
-//        try {
-//            this.conectar(false);
-//            rs = this.ejecutarOrdenDatos(sql);
-//            empleado = new ArrayList<>();
-//            while (rs.next() == true) {
-//                emp = new Empleado();
-//                emp.setIdEmpleado(rs.getInt("id_empleado"));
-//                emp.setNombres(rs.getString("nombres") + " " + (rs.getString("apellidos")));
-//                empleado.add(emp);
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//        return empleado;
-//    }
-//
-//    public void registrarUsuarios(Usuario usu) throws Exception {
-//        String sql;
-//        sql = "INSERT INTO usuario (nombre_usuario, clave, empleado_id, vigencia)"
-//                + "VALUES('" + usu.getUsuario() + "', '"
-//                + usu.getClave() + "', "
-//                + usu.getEmpleado().getIdEmpleado() + ", 1)";
-//        try {
-//            this.conectar(false);
-//            this.ejecutarOrden(sql);
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//    }
-//
-//    public Usuario leerUsuario(Usuario usu) throws Exception {
-//        Usuario usus = null;
-//        ResultSet rs = null;
-//        String sql = "SELECT U.*, E.nombres, E.apellidos FROM usuario U INNER JOIN empleado E "
-//                + "ON E.id_empleado = U.empleado_id WHERE U.id_usuario = " + usu.getIdLogin();
-//        try {
-//            this.conectar(false);
-//            rs = this.ejecutarOrdenDatos(sql);
-//            if (rs.next() == true) {
-//                usus = new Usuario();
-//                usus.setIdLogin(usu.getIdLogin());
-//                usus.setUsuario(rs.getString("nombre_usuario"));
-//                usus.setClave(rs.getString("clave"));
-//                usus.setVigencia(rs.getBoolean("vigencia"));
-//                usus.setEmpleado(new Empleado());
-//                usus.getEmpleado().setIdEmpleado(rs.getInt("empleado_id"));
-//                usus.getEmpleado().setNombres(rs.getString("nombres") + " " + (rs.getString("apellidos")));
-//            }
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//        return usus;
-//    }
-//
-//    public void actualizarUsuario(Usuario usuario) throws Exception {
-//        String sql;
-//        sql = "UPDATE Usuario SET nombre_usuario = '" + usuario.getUsuario()
-//                + "', clave = '" + usuario.getClave()
-//                + "', empleado_id = " + usuario.getEmpleado().getIdEmpleado()
-//                + " WHERE id_usuario = " + usuario.getIdLogin();
-//
-//        try {
-//            this.conectar(false);
-//            this.ejecutarOrden(sql);
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//    }
-//
-//    public void desactivarUsuarios(Usuario usu) throws Exception {
-//        String sql = "UPDATE usuario U SET U.vigencia = 0 WHERE id_usuario = " + usu.getIdLogin();
-//        try {
-//            this.conectar(false);
-//            this.ejecutarOrden(sql);
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.cerrar(false);
-//        }
-//    }
+    public List<Usuario> listarUsuarios() throws Exception {
+        List<Usuario> usuarios;
+        Usuario usu;
+        ResultSet rs;
+        String sql = "SELECT U.IDUSUARIO, U.USUARIO, U.CLAVE, U.ESTADO, "
+                + "P.NOMBRES, P.APELLIDOS FROM usuario U INNER JOIN persona P "
+                + "ON U.IDPERSONA = P.IDPERSONA";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            usuarios = new ArrayList<>();
+            while (rs.next() == true) {
+                usu = new Usuario();
+                usu.setIdUsuario(rs.getInt("IDUSUARIO"));
+                usu.setUsuario(rs.getString("USUARIO"));
+                usu.setClave(rs.getString("CLAVE"));
+                usu.setEstado(rs.getBoolean("ESTADO"));
+                usu.setNombresCompletos(rs.getString("NOMBRES") + " " + (rs.getString("APELLIDOS")));
+                usuarios.add(usu);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return usuarios;
+    }
+
+    public List<Persona> listarPersonasSinLogin() throws Exception {
+        List<Persona> empleado;
+        Persona emp;
+        ResultSet rs;
+        String sql = "SELECT p.IDPERSONA, p.NOMBRES, p.APELLIDOS "
+                + "FROM persona P WHERE NOT EXISTS(SELECT * FROM USUARIO u WHERE u.IDPERSONA = p.IDPERSONA)";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            empleado = new ArrayList<>();
+            while (rs.next() == true) {
+                emp = new Persona();
+                emp.setIdPersona(rs.getInt("IDPERSONA"));
+                emp.setNombres(rs.getString("NOMBRES") + " " + (rs.getString("APELLIDOS")));
+                empleado.add(emp);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return empleado;
+    }
+
+    public void registrarUsuarios(Usuario usu) throws Exception {
+        String sql;
+        sql = "INSERT INTO usuario (USUARIO, CLAVE, IDPERSONA, ESTADO)"
+                + "VALUES('" + usu.getUsuario() + "', '"
+                + usu.getClave() + "', "
+                + usu.getPersona().getIdPersona() + ", 1)";
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+    }
+
+    public Usuario leerUsuario(Usuario usu) throws Exception {
+        Usuario usus = null;
+        ResultSet rs = null;
+        String sql = "SELECT U.IDUSUARIO, U.IDPERSONA, U.USUARIO, U.CLAVE, U.ESTADO "
+                + "FROM usuario U WHERE U.IDUSUARIO = " + usu.getIdUsuario();
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            if (rs.next() == true) {
+                usus = new Usuario();
+                usus.setIdUsuario(usu.getIdUsuario());
+                usus.setUsuario(rs.getString("USUARIO"));
+                usus.setClave(rs.getString("CLAVE"));
+                usus.setEstado(rs.getBoolean("ESTADO"));
+                usus.setPersona(new Persona());
+                usus.getPersona().setIdPersona(rs.getInt("IDPERSONA"));
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return usus;
+    }
+
+    public void actualizarUsuario(Usuario usuario) throws Exception {
+        String sql;
+        sql = "UPDATE usuario SET USUARIO = '" + usuario.getUsuario()
+                + "', CLAVE = '" + usuario.getClave()
+                + "', IDPERSONA = " + usuario.getPersona().getIdPersona()
+                + " WHERE IDUSUARIO = " + usuario.getIdUsuario();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+    }
+
+    public void desactivarUsuarios(Usuario usu) throws Exception {
+        String sql = "UPDATE usuario U SET U.ESTADO = 0 WHERE IDUSUARIO = " + usu.getIdUsuario();
+        try {
+            this.conectar(false);
+            this.ejecutarOrden(sql);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+    }
 
     /*--------------------------RECUPERAR CONTRASEÑA-------------------------*/
     public Usuario solicitarCambioContrasenia(Usuario usu) throws Exception {
@@ -169,7 +170,7 @@ public class UsuarioDAO extends Conexion {
             rs = this.ejecutarOrdenDatos(sql);
             if (rs.next() == true) {
                 usus = new Usuario();
-                usus.setUsuario(rs.getString("USUARIO"));             
+                usus.setUsuario(rs.getString("USUARIO"));
                 usus.setNombresCompletos(rs.getString("NOMBRES") + " " + (rs.getString("APELLIDOS")));
             }
         } catch (Exception e) {

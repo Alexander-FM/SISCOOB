@@ -93,19 +93,19 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-purple card-outline">
+                                <div class="card card-blue card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Registrar Categorías</h3>
+                                        <h3 class="card-title">Registrar Equipo</h3>
                                     </div>
                                     <div class="card-body">
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-file-signature"></i> Nuevo Registro</button>
+                                        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-file-signature"></i> Nuevo Registro</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <div class="card card-yellow card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Listado De Categorías</h3>
+                                        <h3 class="card-title">Listado De Equipos</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
@@ -113,8 +113,12 @@
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>Id</th>
-                                                    <th>Categoria</th>                                                
-                                                    <th>Estado</th>                                                
+                                                    <th>Codigo Patrimonio</th>                                                
+                                                    <th>Orden Compra</th>                                                
+                                                    <th>Serie</th>
+                                                    <th>Tipo</th>
+                                                    <th>Marca</th>
+                                                    <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
@@ -123,8 +127,12 @@
                                             <tfoot>
                                                 <tr class="text-center">
                                                     <th>Id</th>
-                                                    <th>Categoría</th>
-                                                    <th>Estado</th> 
+                                                    <th>Codigo Patrimonio</th>                                                
+                                                    <th>Orden Compra</th>                                                
+                                                    <th>Serie</th>
+                                                    <th>Tipo</th>
+                                                    <th>Marca</th>
+                                                    <th>Estado</th>
                                                     <th>Acciones</th>
                                                 </tr>
                                             </tfoot>
