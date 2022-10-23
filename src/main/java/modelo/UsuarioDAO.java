@@ -8,8 +8,8 @@ public class UsuarioDAO extends Conexion {
     public Usuario identificar(Usuario usuario) throws Exception {
         Usuario usu = null;
         ResultSet rs = null;
-        String sql = "SELECT U.IDUSUARIO, P.IDPERSONA, P.NOMBRES, P.APELLIDOS FROM persona P "
-                + "INNER JOIN usuario U ON U.IDPERSONA = P.IDPERSONA "
+        String sql = "SELECT R.ROL, U.IDUSUARIO, P.IDPERSONA, P.NOMBRES, P.APELLIDOS FROM persona P "
+                + "INNER JOIN usuario U ON U.IDPERSONA = P.IDPERSONA INNER JOIN rol R ON R.IDROL = P.IDROL "
                 + "WHERE u.usuario = '" + usuario.getUsuario() + "' AND "
                 + "u.clave = '" + usuario.getClave() + "'";
         try {
@@ -22,6 +22,8 @@ public class UsuarioDAO extends Conexion {
                 usu.getPersona().setIdPersona(rs.getInt("IDPERSONA"));
                 usu.getPersona().setNombres(rs.getString("NOMBRES"));
                 usu.getPersona().setApellidos(rs.getString("APELLIDOS"));
+                usu.getPersona().setRol(new Rol());
+                usu.getPersona().getRol().setRol(rs.getString("ROL"));               
 
             }
         } catch (Exception e) {
