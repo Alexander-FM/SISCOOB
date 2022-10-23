@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Persona;
 import modelo.Usuario;
 import modelo.UsuarioDAO;
 
@@ -30,6 +31,24 @@ public class srvUsuario extends HttpServlet {
                     break;
                 case "cerrar":
                     cerrarsession(request, response);
+                    break;
+                case "listar":
+                    listarUsuarios(response);
+                    break;
+                case "listarEmpleadosSinLogin":
+                    listarEmpleadosSinLogin(response);
+                    break;
+                case "registrar":
+                    registrar(request, response);
+                    break;
+                case "editar":
+                    editar(request, response);
+                    break;
+                case "leer":
+                    leerUsuario(request, response);
+                    break;
+                case "desactivarUsuario":
+                    desactivarUsuarios(request, response);
                     break;
                 case "solicitarCambioC":
                     solicitarCambioContrasenia(request, response);
@@ -92,17 +111,10 @@ public class srvUsuario extends HttpServlet {
             try {
                 usuario = dao.identificar(usuario);
                 if (usuario == null) {
-                    this.printMessage("Usuario y/o contraseña incorrectas o credenciales no válidas", false, response);
+                    this.printMessage("Credenciales incorrectas o usuario desactivado. Para más información contactar a administración", false, response);
                 } else {
                     request.getSession().setAttribute("usuario", usuario);
                     this.printMessage("Acceso permitido", true, response);
-                    /*if (!usuario.isVigencia()) {
-                        this.printMessage("Usuario desactivado. Para más información comuníquese "
-                                + "con el administrador", false, response);
-                    } else {
-                        request.getSession().setAttribute("usuario", usuario);
-                        this.printMessage("Acceso permitido", true, response);
-                    }*/
                 }
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);
@@ -123,6 +135,106 @@ public class srvUsuario extends HttpServlet {
         sesion.removeAttribute("usuario");
         sesion.invalidate();
         response.sendRedirect("index.jsp");
+    }
+    
+    private void listarUsuarios(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            UsuarioDAO dao = new UsuarioDAO();
+            List<Usuario> emp = dao.listarUsuarios();
+            Gson gson = new Gson();
+            String json = gson.toJson(emp);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
+        }
+    }
+
+    private void listarEmpleadosSinLogin(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            UsuarioDAO dao = new UsuarioDAO();
+            List<Persona> emp = dao.listarPersonasSinLogin();
+            Gson gson = new Gson();
+            response.setContentType("application/json;charset=UTF-8");
+            String json = gson.toJson(emp, new TypeToken<List<Persona>>() {
+            }.getType());
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
+        }
+    }
+
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getParameter("usu") != null) {
+            Gson gson = new Gson();
+            Usuario usu = gson.fromJson(request.getParameter("usu"), Usuario.class);
+            String rpt;
+            try {
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.registrarUsuarios(usu);
+                rpt = "Registrado";
+                this.printMessage("Usuario " + rpt + " correctamente", true, response);
+            } catch (Exception e) {
+                this.printMessage(e.getMessage(), false, response);
+            }
+        } else {
+            this.printMessage("Rellene el formulario", false, response);
+        }
+    }
+
+    private void editar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getParameter("usu") != null) {
+            Gson gson = new Gson();
+            Usuario usu = gson.fromJson(request.getParameter("usu"), Usuario.class);
+            String rpt;
+            try {
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.actualizarUsuario(usu);
+                rpt = "Actualizado";
+                this.printMessage("Usuario " + rpt + " correctamente", true, response);
+            } catch (Exception e) {
+                this.printMessage(e.getMessage(), false, response);
+            }
+        } else {
+            this.printMessage("Rellene el formulario", false, response);
+        }
+    }
+
+    private void leerUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UsuarioDAO dao;
+        Usuario usu;
+        if (request.getParameter("id") != null) {
+            usu = new Usuario();
+            usu.setIdUsuario(Integer.parseInt(request.getParameter("id")));
+            try {
+                dao = new UsuarioDAO();
+                usu = dao.leerUsuario(usu);
+                String json = new Gson().toJson(usu);
+                response.getWriter().print(json);
+            } catch (Exception e) {
+                this.printMessage(e.getMessage(), false, response);
+            }
+        } else {
+            this.printMessage("No se tiene el parametro del usuario", false, response);
+        }
+    }
+
+    private void desactivarUsuarios(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Usuario emp;
+        if (request.getParameter("id") != null) {
+            emp = new Usuario();
+            emp.setIdUsuario(Integer.parseInt(request.getParameter("id")));
+            try {
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.desactivarUsuarios(emp);
+                this.printMessage("Usuario desactivado correctamente", true, response);
+            } catch (Exception e) {
+                this.printMessage(e.getMessage(), false, response);
+            }
+        } else {
+            this.printMessage("No se tiene parametro del usuario", false, response);
+        }
     }
     
     private void solicitarCambioContrasenia(HttpServletRequest request, HttpServletResponse response) throws IOException {

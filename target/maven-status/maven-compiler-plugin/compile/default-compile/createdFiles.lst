@@ -1,7 +1,12 @@
 controller\srvUsuario.class
+modelo\Estado.class
 config\Parametro.class
+modelo\Marca.class
 modelo\Rol.class
 modelo\Persona.class
+modelo\Equipo.class
+modelo\PersonaDAO.class
 config\Conexion.class
 modelo\UsuarioDAO.class
+modelo\EquipoDAO.class
 modelo\Usuario.class

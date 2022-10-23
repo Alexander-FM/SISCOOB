@@ -17,7 +17,7 @@ public class UsuarioDAO extends Conexion {
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
-            if (rs.next() == true) {
+            if (rs.next()) {
                 usu = new Usuario();
                 usu.setIdUsuario(rs.getInt("IDUSUARIO"));
                 usu.setPersona(new Persona());
@@ -27,8 +27,8 @@ public class UsuarioDAO extends Conexion {
                 usu.getPersona().setRol(new Rol());
                 usu.getPersona().getRol().setRol(rs.getString("ROL"));
                 usu.setEstado(true);
-
             }
+
         } catch (Exception e) {
             throw e;
         } finally {

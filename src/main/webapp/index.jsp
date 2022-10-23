@@ -31,7 +31,7 @@
                     <br>       
                     <form id="frmLogin">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" maxlength="10" placeholder="Usuario" id="user" style="text-transform: uppercase;">
+                            <input type="text" class="form-control" maxlength="10" required="" placeholder="Usuario" id="user" style="text-transform: uppercase;">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" maxlength="10" class="form-control" placeholder="Password" id="pass" style="text-transform: uppercase;">
+                            <input type="password" maxlength="10" class="form-control" required="" placeholder="Password" id="pass" style="text-transform: uppercase;">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
