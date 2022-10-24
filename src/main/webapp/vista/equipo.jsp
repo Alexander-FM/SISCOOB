@@ -40,7 +40,7 @@
                 <!-- /.content-header -->
 
                 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-lg">
-                    <input type="hidden" id="idCate" value="0">
+                    <input type="hidden" id="idEquipo" value="0">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -49,37 +49,90 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form class="form" id="frmCategorias">
+                            <form class="form" id="frmEquipo">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Nombre de la Categoria</label>
+                                                <label style="font-family: sans-serif">Código Patrimonio</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-copyright"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-folder"></i></span>
                                                     </div>
-                                                    <input type="text" name="nombreCate" id="nombreCate" class="form-control" placeholder="Ingresar Nombre Categoria">
+                                                    <input type="text" name="codigoPatrimonio" id="codigoPatrimonio" maxlength="15" class="form-control" placeholder="740892000336">
                                                 </div>
                                             </div>                                            
                                         </div>                                  
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Estado de la Categoria</label>
-                                                <div class="input-group">                                             
+                                                <label style="font-family: sans-serif">Orden Compra</label>
+                                                <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoCategoria" id="chkEstadoCategoria">
-                                                        </span>
+                                                        <span class="input-group-text"><i class="fas fa-file"></i></span>
                                                     </div>
-                                                    <label type="text" class="form-control">Activo / Inactivo</label>
+                                                    <input type="text" name="ordenCompra" id="ordenCompra" maxlength="15" class="form-control" placeholder="466-2010">
                                                 </div>
-                                            </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Serie Número</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                                    </div>
+                                                    <input type="text" name="serieNumero" id="serieNumero" maxlength="15" class="form-control" placeholder="DFXNJN1">
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Nombre</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-folder"></i></span>
+                                                    </div>
+                                                    <input type="text" name="nombreBien" id="nombreBien" maxlength="15" class="form-control" placeholder="SERVIDOR">
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Estado</label>
+                                                <select id="comboEstado" required="" name="comboEstado" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
+                                                    <!-- Cargar desde la base de datos -->
+                                                    <option>Cargando . . .</option>
+                                                </select>  
+                                            </div>                                           
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Marca</label>
+                                                <select id="comboMarca" required="" name="comboMarca" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
+                                                    <!-- Cargar desde la base de datos -->
+                                                    <option>Cargando . . .</option>
+                                                </select>  
+                                            </div>                                           
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Fecha OC</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                                    </div>
+                                                    <input type="date" name="fechaOC" id="fechaOC" maxlength="15" class="form-control" placeholder="SERVIDOR">
+                                                </div>
+                                            </div>                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer clearfix">                               
-                                    <button id="btn-save" type="submit" class="btn btn-outline-success float-right">Registrar Categoria <span class="fas fa-save"></span></button>
+                                    <button id="btn-save" type="submit" class="btn btn-outline-success float-right">Registrar Equipo <span class="fas fa-save"></span></button>
                                 </div>
                             </form>
                         </div>
@@ -109,7 +162,7 @@
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <table id="tablaCategoria" class="table table-responsive-lg table-bordered table-hover">
+                                        <table id="tablaEquipos" class="table table-responsive-lg table-bordered table-hover">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>Id</th>
@@ -158,7 +211,9 @@
 
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
-        <%@include file="plus/scripts.jsp" %>            
+        <%@include file="plus/scripts.jsp" %>
+        <!--<script src="https://momentjs.com/downloads/moment.js" type="text/javascript"></script>-->
+        <script src="../js/scriptEquipos.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

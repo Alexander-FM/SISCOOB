@@ -85,7 +85,8 @@
 
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
-        <%@include file="plus/scripts.jsp" %>            
+        <%@include file="plus/scripts.jsp" %> 
+        <script src="../js/scriptInicio.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

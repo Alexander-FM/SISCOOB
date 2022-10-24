@@ -24,8 +24,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a href="#" class="nav-link active">
+                <li id="li_grupo_inicio" class="nav-item has-treeview menu-close">
+                    <a id="a_pagina_prinicipal" href="#" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p>
                             Pagina Principal
@@ -33,16 +33,16 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="../vista/inicio.jsp" class="nav-link active">
+                        <li id="li_inicio" class="nav-item">
+                            <a href="../vista/inicio.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inicio</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview menu-close">
-                    <a href="#" class="nav-link">
+                <li id="li_grupo_registros" class="nav-item has-treeview menu-close">
+                    <a id="a_registros" href="#" class="nav-link">
                         <i class="nav-icon fas fa-clipboard"></i>
                         <p>
                             Registros
@@ -50,7 +50,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <li id="li_equipos" class="nav-item">
                             <a href="../vista/equipo.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Equipos</p>

@@ -39,6 +39,52 @@ public class EquipoDAO extends Conexion {
         }
         return equipos;
     }
+    
+    public List<Estado> listarEstados() throws Exception {
+        List<Estado> estados;
+        Estado est;
+        ResultSet rs;
+        String sql = "SELECT IDESTADO, ESTADO FROM ESTADO";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            estados = new ArrayList<>();
+            while (rs.next() == true) {
+                est = new Estado();
+                est.setIdEstado(rs.getInt("IDESTADO"));
+                est.setEstado(rs.getString("ESTADO"));
+                estados.add(est);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return estados;
+    }
+    
+    public List<Marca> listarMarcas() throws Exception {
+        List<Marca> marcas;
+        Marca est;
+        ResultSet rs;
+        String sql = "SELECT IDMARCA, MARCA FROM MARCA";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            marcas = new ArrayList<>();
+            while (rs.next() == true) {
+                est = new Marca();
+                est.setIdMarca(rs.getInt("IDMARCA"));
+                est.setMarca(rs.getString("MARCA"));
+                marcas.add(est);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return marcas;
+    }
 
     public void registrar(Equipo equi) throws Exception {
         String sql;

@@ -3,6 +3,8 @@ package controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Equipo;
 import modelo.EquipoDAO;
+import modelo.Estado;
+import modelo.Marca;
 
 /**
  *
@@ -27,6 +31,12 @@ public class srvEquipos extends HttpServlet {
             switch (accion) {
                 case "listar":
                     listar(response);
+                    break;
+                case "listarEstados":
+                    listarEstados(response);
+                    break;
+                case "listarMarcas":
+                    listarMarcas(response);
                     break;
                 case "registrar":
                     registrar(request, response);
@@ -105,7 +115,33 @@ public class srvEquipos extends HttpServlet {
             this.printError(e.getMessage(), response);
         }
     }
-    
+
+    private void listarEstados(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            EquipoDAO dao = new EquipoDAO();
+            List<Estado> emp = dao.listarEstados();
+            Gson gson = new Gson();
+            String json = gson.toJson(emp);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
+        }
+    }
+
+    private void listarMarcas(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            EquipoDAO dao = new EquipoDAO();
+            List<Marca> emp = dao.listarMarcas();
+            Gson gson = new Gson();
+            String json = gson.toJson(emp);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
+        }
+    }
+
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("equipo") != null) {
             Gson gson = new Gson();
