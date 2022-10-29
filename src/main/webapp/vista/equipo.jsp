@@ -125,7 +125,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                                     </div>
-                                                    <input type="date" name="fechaOC" id="fechaOC" maxlength="15" class="form-control" placeholder="SERVIDOR">
+                                                    <input type="date" name="fechaOC" id="fechaOC" class="form-control">
                                                 </div>
                                             </div>                                            
                                         </div>
@@ -212,7 +212,6 @@
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %>
-        <!--<script src="https://momentjs.com/downloads/moment.js" type="text/javascript"></script>-->
         <script src="../js/scriptEquipos.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>

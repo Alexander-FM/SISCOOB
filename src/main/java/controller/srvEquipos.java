@@ -3,9 +3,12 @@ package controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -150,7 +153,7 @@ public class srvEquipos extends HttpServlet {
             try {
                 EquipoDAO dao = new EquipoDAO();
                 dao.registrar(equi);
-                rpt = "Registrado";
+                rpt = "registrado";
                 this.printMessage("Equipo " + rpt + " correctamente", true, response);
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);
@@ -161,14 +164,14 @@ public class srvEquipos extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getParameter("usu") != null) {
+        if (request.getParameter("equipo") != null) {
             Gson gson = new Gson();
             Equipo equipo = gson.fromJson(request.getParameter("equipo"), Equipo.class);
             String rpt;
             try {
                 EquipoDAO dao = new EquipoDAO();
                 dao.actualizar(equipo);
-                rpt = "Actualizado";
+                rpt = "actualizado";
                 this.printMessage("Equipo " + rpt + " correctamente", true, response);
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);

@@ -1,7 +1,11 @@
 package modelo;
+
 import config.Conexion;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class EquipoDAO extends Conexion {
@@ -11,8 +15,8 @@ public class EquipoDAO extends Conexion {
         Equipo equi;
         ResultSet rs;
         String sql = "SELECT EQ.IDEQUIPO, EQ.CODIGO_PATRIMONIO, EQ.ORDEN_COMPRA, "
-                + "EQ.SERIE_NUMERO, EQ.NOMBRE_BIEN, EQ.FECHA_OC, M.MARCA, E.ESTADO " 
-                + "FROM equipo EQ INNER JOIN estado E ON EQ.IDESTADO = E.IDESTADO " 
+                + "EQ.SERIE_NUMERO, EQ.NOMBRE_BIEN, EQ.FECHA_OC, M.MARCA, E.ESTADO "
+                + "FROM equipo EQ INNER JOIN estado E ON EQ.IDESTADO = E.IDESTADO "
                 + "INNER JOIN marca M ON EQ.IDMARCA = M.IDMARCA";
         try {
             this.conectar(false);
@@ -39,7 +43,7 @@ public class EquipoDAO extends Conexion {
         }
         return equipos;
     }
-    
+
     public List<Estado> listarEstados() throws Exception {
         List<Estado> estados;
         Estado est;
@@ -62,7 +66,7 @@ public class EquipoDAO extends Conexion {
         }
         return estados;
     }
-    
+
     public List<Marca> listarMarcas() throws Exception {
         List<Marca> marcas;
         Marca est;
@@ -88,15 +92,17 @@ public class EquipoDAO extends Conexion {
 
     public void registrar(Equipo equi) throws Exception {
         String sql;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaOc = sdf.format(equi.getFechaOc());
         sql = "INSERT INTO equipo (CODIGO_PATRIMONIO, ORDEN_COMPRA, SERIE_NUMERO, "
                 + "NOMBRE_BIEN, FECHA_OC, IDMARCA, IDESTADO)"
-                + "VALUES('" + equi.getCodigoPatrimonio()+ "', '"
-                + equi.getOrdenCompra()+ "', '"
-                + equi.getSerieNumero()+ "', '"
-                + equi.getNombreBien()+ "', '"
-                + equi.getFechaOc() + "', "
+                + "VALUES('" + equi.getCodigoPatrimonio() + "', '"
+                + equi.getOrdenCompra() + "', '"
+                + equi.getSerieNumero() + "', '"
+                + equi.getNombreBien() + "', '"
+                + fechaOc + "', "
                 + equi.getMarca().getIdMarca() + ", "
-                + equi.getEstado().getIdEstado()+ ")";
+                + equi.getEstado().getIdEstado() + ")";
         try {
             this.conectar(false);
             this.ejecutarOrden(sql);
@@ -111,7 +117,7 @@ public class EquipoDAO extends Conexion {
         Equipo equi = null;
         ResultSet rs = null;
         String sql = "SELECT EQ.IDEQUIPO, EQ.CODIGO_PATRIMONIO, EQ.ORDEN_COMPRA, "
-                + "EQ.SERIE_NUMERO, EQ.NOMBRE_BIEN, EQ.FECHA_OC, EQ.IDESTADO, EQ.IDMARCA " 
+                + "EQ.SERIE_NUMERO, EQ.NOMBRE_BIEN, EQ.FECHA_OC, EQ.IDESTADO, EQ.IDMARCA "
                 + "FROM equipo EQ WHERE EQ.IDEQUIPO = " + equipo.getIdEquipo();
         try {
             this.conectar(false);
@@ -125,9 +131,9 @@ public class EquipoDAO extends Conexion {
                 equi.setNombreBien(rs.getString("NOMBRE_BIEN"));
                 equi.setFechaOc(rs.getDate("FECHA_OC"));
                 equi.setMarca(new Marca());
-                equi.getMarca().setIdMarca((rs.getInt("MARCA")));
+                equi.getMarca().setIdMarca((rs.getInt("IDMARCA")));
                 equi.setEstado(new Estado());
-                equi.getEstado().setEstado((rs.getString("ESTADO")));
+                equi.getEstado().setIdEstado((rs.getInt("IDESTADO")));
             }
         } catch (Exception e) {
             throw e;
@@ -139,11 +145,13 @@ public class EquipoDAO extends Conexion {
 
     public void actualizar(Equipo equipo) throws Exception {
         String sql;
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaOc = sdf.format(equipo.getFechaOc());
         sql = "UPDATE equipo SET CODIGO_PATRIMONIO = '" + equipo.getCodigoPatrimonio()
                 + "', ORDEN_COMPRA = '" + equipo.getOrdenCompra()
                 + "', SERIE_NUMERO = '" + equipo.getSerieNumero()
                 + "', NOMBRE_BIEN = '" + equipo.getNombreBien()
-                + "', FECHA_OC = '" + equipo.getFechaOc()
+                + "', FECHA_OC = '" + fechaOc
                 + "', IDESTADO = " + equipo.getEstado().getIdEstado()
                 + ", IDMARCA = " + equipo.getMarca().getIdMarca()
                 + " WHERE IDEQUIPO = " + equipo.getIdEquipo();
@@ -156,7 +164,7 @@ public class EquipoDAO extends Conexion {
             this.cerrar(false);
         }
     }
-    
+
     public void eliminar(Equipo equipo) {
         String sql = "DELETE FROM equipo WHERE IDEQUIPO = " + equipo.getIdEquipo();
         try {
