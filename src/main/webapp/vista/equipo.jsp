@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Fecha OC</label>
+                                                <label style="font-family: sans-serif">Fecha Registro</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar"></i></span>

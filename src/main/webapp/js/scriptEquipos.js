@@ -1,3 +1,5 @@
+/* global moment */
+
 //Declaramos nuestras variables globlales
 var tabla = $("table#tablaEquipos"),
         frmEquipo = $("#frmEquipo"),
@@ -49,7 +51,9 @@ $(document).ready(function () {
                 fechaOc: txtFechaOC.val()
                 //fechaOc: moment(txtFechaOC.val(), 'DD-MM-YYYY').format('YYYY-MM-DD')
             };
-            console.log(new Date($("#fechaOC").val()));
+             const date = moment(txtFechaOC.val).format('ll');
+             console.log(date);
+
             $.ajax({
                 url: "../srvEquipos?accion=" + (parseInt(json.idEquipo) === 0 ? 'registrar' : 'editar'),
                 type: 'POST',
@@ -210,13 +214,13 @@ function leerEquipo(idTemp) {
             txtOrdenCompra.val(data.ordenCompra);
             txtSerieNumero.val(data.serieNumero);
             txtNombreBien.val(data.nombreBien);
-            //const date = moment(data.fechaOc, 'DD-MM-YYYY').format("YYYY-MM-DD");
-            txtFechaOC.val(data.fechaOc);
-            const date = moment(data.fechaOc, 'DD-MM-YYYY').format("DD-MM-YYYY");
+            //const date = moment(data.fechaOc, 'DD-MM-YYYY').format("YYYY-MM-DD");           
+            const date = moment(data.fechaOc).format('YYYY-MM-DD');
             console.log(date);
+            txtFechaOC.val(date);
             cboEstado.val(data.estado.idEstado);
             cboMarca.val(data.marca.idMarca);
-            txtIdEquipo.val(data.idEquipo)
+            txtIdEquipo.val(data.idEquipo);
         }
     });
     $('#btn-save').html('<i class="fas fa-sync-alt"></i> Actualizar Equipo');

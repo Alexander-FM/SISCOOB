@@ -62,7 +62,7 @@
                                 <p>Fichas Técnicas</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li id="li_usuarios" class="nav-item">
                             <a href="../vista/usuario.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Usuarios</p>
