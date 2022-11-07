@@ -89,7 +89,7 @@
                                                 <div class="input-group">                                             
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
-                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoUsuario" id="chkEstadoUsuario">
+                                                            <input type="checkbox" checked="" name="chkEstadoUsuario" id="chkEstadoUsuario">
                                                         </span>
                                                     </div>
                                                     <label type="text" class="form-control">Activo / Inactivo</label>

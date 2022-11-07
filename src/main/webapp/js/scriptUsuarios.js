@@ -16,6 +16,8 @@ $(document).ready(function () {
     a.attr('class', 'nav-link active');//Aplicamos la clase 'active' a la etiquea a
     let tituloPag = $('#tituloPag');
     tituloPag.html('Registros | Usuarios');
+    $("input:checkbox").prop('checked', false);
+    $('.select2').select2();
     //Desactivar Usuarios
     tabla.on("click", ".btn-danger", function () {
         var id = $(this).parents("tr").children()[0].textContent;
@@ -52,10 +54,12 @@ $(document).ready(function () {
                     if (data.rpt) {
                         swal("Mensaje del Sistema", data.msj, "success");
                         listarUsuarios();
+                        listarPersonasSinLogin();
+                        cboPersonas.removeAttr('disabled');
                         frmUsuario[0].reset();
                         mdlUsuario.modal("hide");
                         txtIdUsu.val(0);
-                        $('#btn-save').html('<i class="fas fa-save"></i> Registrar Equipo');
+                        $('#btn-save').html('<i class="fas fa-save"></i> Registrar Usuario');
                         $('#titulo').html('Formulario de Registro');
                     } else {
                         swal("Error", data.msj, "error");
@@ -88,6 +92,7 @@ $(document).ready(function () {
         }
     });
     listarUsuarios();
+    listarPersonasSinLogin();
 });
 
 function listarPersonasSinLogin() {
@@ -104,7 +109,6 @@ function listarPersonasSinLogin() {
         }
     });
 }
-listarPersonasSinLogin();
 
 function listarUsuarios() {
     $.ajax({
@@ -118,7 +122,7 @@ function listarUsuarios() {
                         + "<td>" + data[i].idUsuario + "</td>"
                         + "<td>" + data[i].usuario + "</td>"
                         + "<td>" + data[i].clave + "</td>"
-                        + "<td>" + data[i].persona.nombres + "</td>"
+                        + "<td>" + data[i].persona.nombres + ' ' + data[i].persona.apellidos + "</td>"
                         + "<td>" + (data[i].estado ? '<h5><span class =\"badge badge-success\">Activo</span></h5>' : '<h5><span class =\"badge badge-danger\">Inactivo</span></h5>') + "</td>"
                         + "<td nowrap><button title=\"Editar\" class=\"btn btn-warning\">"
                         + "<span class=\"fas fa-edit\"></span></button> "
@@ -171,7 +175,8 @@ function leerUsuarios(idTemp) {
         success: function (data) {
             txtNombreUsuario.val(data.usuario);
             txtClave.val(data.clave);
-            cboPersonas.val(data.persona.idPersona);
+            let item = '<option value="' + data.persona.idPersona + '" selected>' + (data.persona.nombres + ' ' + data.persona.apellidos) + '</option>';
+            $('#cboPersonas').append(item);
             txtIdUsu.val(data.idUsuario);
             chkEstado.prop('checked', data.estado);
             cboPersonas.attr('disabled', '');
@@ -185,6 +190,7 @@ function cancelarPeticion() {
     frmUsuario[0].reset();
     txtIdUsu.val(0);
     listarPersonasSinLogin();
+    cboPersonas.removeAttr('disabled');
     $('#btn-save').html('<i class="fas fa-save"></i> Registrar Usuario');
     $('#titulo').html('Formulario de Registro');
     txtNombreUsuario.removeClass('is-invalid');//Remueve la clase is-invalid

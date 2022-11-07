@@ -55,6 +55,9 @@ public class UsuarioDAO extends Conexion {
                 usu.setClave(rs.getString("CLAVE"));
                 usu.setEstado(rs.getBoolean("ESTADO"));
                 usu.setNombresCompletos(rs.getString("NOMBRES") + " " + (rs.getString("APELLIDOS")));
+                usu.setPersona(new Persona());
+                usu.getPersona().setNombres((rs.getString("NOMBRES")));
+                usu.getPersona().setApellidos((rs.getString("APELLIDOS")));
                 usuarios.add(usu);
             }
         } catch (Exception e) {
@@ -78,7 +81,8 @@ public class UsuarioDAO extends Conexion {
             while (rs.next() == true) {
                 emp = new Persona();
                 emp.setIdPersona(rs.getInt("IDPERSONA"));
-                emp.setNombres(rs.getString("NOMBRES") + " " + (rs.getString("APELLIDOS")));
+                emp.setNombres(rs.getString("NOMBRES"));
+                emp.setApellidos(rs.getString("APELLIDOS"));
                 empleado.add(emp);
             }
         } catch (Exception e) {
@@ -108,8 +112,9 @@ public class UsuarioDAO extends Conexion {
     public Usuario leerUsuario(Usuario usu) throws Exception {
         Usuario usus = null;
         ResultSet rs = null;
-        String sql = "SELECT U.IDUSUARIO, U.IDPERSONA, U.USUARIO, U.CLAVE, U.ESTADO "
-                + "FROM usuario U WHERE U.IDUSUARIO = " + usu.getIdUsuario();
+        String sql = "SELECT U.IDUSUARIO, U.IDPERSONA, U.USUARIO, U.CLAVE, U.ESTADO, "
+                + "P.NOMBRES, P.APELLIDOS FROM usuario U INNER JOIN persona P "
+                + "ON U.IDPERSONA = P.IDPERSONA WHERE U.IDUSUARIO = " + usu.getIdUsuario();
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
@@ -121,6 +126,8 @@ public class UsuarioDAO extends Conexion {
                 usus.setEstado(rs.getBoolean("ESTADO"));
                 usus.setPersona(new Persona());
                 usus.getPersona().setIdPersona(rs.getInt("IDPERSONA"));
+                usus.getPersona().setNombres(rs.getString("NOMBRES"));
+                usus.getPersona().setApellidos(rs.getString("APELLIDOS"));
             }
         } catch (Exception e) {
             throw e;
@@ -134,7 +141,8 @@ public class UsuarioDAO extends Conexion {
         String sql;
         sql = "UPDATE usuario SET USUARIO = '" + usuario.getUsuario()
                 + "', CLAVE = '" + usuario.getClave()
-                + "', IDPERSONA = " + usuario.getPersona().getIdPersona()
+                + "', ESTADO = " + (usuario.isEstado() == true ? "1" : "0")
+                + ", IDPERSONA = " + usuario.getPersona().getIdPersona()
                 + " WHERE IDUSUARIO = " + usuario.getIdUsuario();
         try {
             this.conectar(false);
