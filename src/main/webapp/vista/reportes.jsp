@@ -38,36 +38,42 @@
                     </div><!-- /.container-fluid -->
                 </div>
                 <!-- /.content-header -->
-
+                <!-- Modal Detalle Fichas de Internamiento -->
+                <div class="modal fade" id="mdlDetalleFicha">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="border-radius: 15px">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Detalle Ficha de Internamiento</h4>
+                            </div>
+                            <div class="modal-body">
+                                <table id="tablaDetalleFicha" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Equipo</th>
+                                            <th class="text-center">Marca</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center">Equipo</th>
+                                            <th class="text-center">Marca</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /. Modal Detalle Fichas de Internamiento -->
                 <!-- Main content -->
                 <div class="content">
                     <div class="container-fluid">
-                        <!-- Modal Detalle Fichas de Internamiento -->
-                        <div class="modal fade" id="mdlDetalleFicha">
-                            <div class="modal-dialog">
-                                <div class="modal-content" style="border-radius: 15px">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Detalle Ficha de Internamiento</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table id="tablaDetalleFicha" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">Equipo</th>
-                                                    <th class="text-center">Marca</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /. Modal Detalle Fichas de Internamiento -->
+
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                 <div class="card card-primary card-outline">
