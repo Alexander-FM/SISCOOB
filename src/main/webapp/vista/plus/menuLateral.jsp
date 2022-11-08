@@ -57,7 +57,7 @@
                             </a>
                         </li>                               
                         <li class="nav-item">
-                            <a href="../vista/ficha.jsp" class="nav-link">
+                            <a id="li_fichas" href="../vista/ficha.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fichas Técnicas</p>
                             </a>
@@ -68,7 +68,7 @@
                                 <p>Usuarios</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li id="li_personas" class="nav-item">
                             <a href="../vista/persona.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Personas</p>

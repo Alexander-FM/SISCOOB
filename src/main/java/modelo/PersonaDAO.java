@@ -32,12 +32,35 @@ public class PersonaDAO extends Conexion {
         }
         return personas;
     }
+    
+    public List<Rol> listarRoles() throws Exception {
+        List<Rol> roles;
+        Rol rol;
+        ResultSet rs;
+        String sql = "SELECT R.IDROL, R.ROL FROM ROL R";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            roles = new ArrayList<>();
+            while (rs.next() == true) {
+                rol = new Rol();
+                rol.setIdRol(rs.getInt("IDROL"));
+                rol.setRol(rs.getString("ROL"));
+                roles.add(rol);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return roles;
+    }
 
     public void registrar(Persona per) throws Exception {
         String sql;
         sql = "INSERT INTO persona (NOMBRES, APELLIDOS, IDROL)"
                 + "VALUES('" + per.getNombres()+ "', '"
-                + per.getApellidos()+ "', '"
+                + per.getApellidos()+ "', "
                 + per.getRol().getIdRol()+ ")";
         try {
             this.conectar(false);

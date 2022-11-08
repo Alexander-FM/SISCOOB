@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Persona;
 import modelo.PersonaDAO;
+import modelo.Rol;
 /**
  *
  * @author Alexander Fuentes Medina
@@ -26,6 +27,9 @@ public class srvPersona extends HttpServlet {
             switch (accion) {
                 case "listar":
                     listar(response);
+                    break;
+                case "listarRoles":
+                    listarRoles(response);
                     break;
                 case "registrar":
                     registrar(request, response);
@@ -95,24 +99,38 @@ public class srvPersona extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             PersonaDAO dao = new PersonaDAO();
-            List<Persona> emp = dao.listar();
+            List<Persona> persona = dao.listar();
             Gson gson = new Gson();
-            String json = gson.toJson(emp);
+            String json = gson.toJson(persona);
             out.print(json);
         } catch (Exception e) {
             this.printError(e.getMessage(), response);
         }
     }
     
+     private void listarRoles(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            PersonaDAO dao = new PersonaDAO();
+            List<Rol> rol = dao.listarRoles();
+            Gson gson = new Gson();
+            String json = gson.toJson(rol);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
+        }
+    }
+    
+    
     private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("persona") != null) {
             Gson gson = new Gson();
-            Persona equi = gson.fromJson(request.getParameter("persona"), Persona.class);
+            Persona person = gson.fromJson(request.getParameter("persona"), Persona.class);
             String rpt;
             try {
                 PersonaDAO dao = new PersonaDAO();
-                dao.registrar(equi);
-                rpt = "Registrado";
+                dao.registrar(person);
+                rpt = "Registrada";
                 this.printMessage("Persona " + rpt + " correctamente", true, response);
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);
@@ -123,14 +141,14 @@ public class srvPersona extends HttpServlet {
     }
 
     private void editar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getParameter("usu") != null) {
+        if (request.getParameter("persona") != null) {
             Gson gson = new Gson();
-            Persona equipo = gson.fromJson(request.getParameter("equipo"), Persona.class);
+            Persona person = gson.fromJson(request.getParameter("persona"), Persona.class);
             String rpt;
             try {
                 PersonaDAO dao = new PersonaDAO();
-                dao.actualizar(equipo);
-                rpt = "Actualizado";
+                dao.actualizar(person);
+                rpt = "Actualizada";
                 this.printMessage("Persona " + rpt + " correctamente", true, response);
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);

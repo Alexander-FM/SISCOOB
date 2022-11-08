@@ -40,7 +40,7 @@
                 <!-- /.content-header -->
 
                 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-lg">
-                    <input type="hidden" id="idCate" value="0">
+                    <input type="hidden" id="idPersona" value="0">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -49,37 +49,44 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form class="form" id="frmCategorias">
+                            <form class="form" id="frmPersonas">
                                 <div class="modal-body">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Nombre de la Categoria</label>
+                                                <label style="font-family: sans-serif">Nombre</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-copyright"></i></span>
                                                     </div>
-                                                    <input type="text" name="nombreCate" id="nombreCate" class="form-control" placeholder="Ingresar Nombre Categoria">
+                                                    <input type="text" name="nombrePersona" maxlength="100" id="nombrePersona" class="form-control" placeholder="Ingresar Nombre">
                                                 </div>
                                             </div>                                            
-                                        </div>                                  
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Estado de la Categoria</label>
-                                                <div class="input-group">                                             
+                                                <label style="font-family: sans-serif">Apelidos</label>
+                                                <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text">
-                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoCategoria" id="chkEstadoCategoria">
-                                                        </span>
+                                                        <span class="input-group-text"><i class="fas fa-copyright"></i></span>
                                                     </div>
-                                                    <label type="text" class="form-control">Activo / Inactivo</label>
+                                                    <input type="text" name="apellidoPersona" maxlength="100" id="apellidoPersona" class="form-control" placeholder="Ingresar Nombre">
                                                 </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4"> 
+                                            <div class="form-group">
+                                                <label id="etiqueta">Seleccionar Rol</label>
+                                                <select id="cboRol" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
+                                                    <!-- Cargar desde la base de datos -->
+                                                    <option>Cargando.....</option>
+                                                </select>  
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer clearfix">                               
-                                    <button id="btn-save" type="submit" class="btn btn-outline-success float-right">Registrar Categoria <span class="fas fa-save"></span></button>
+                                    <button id="btn-save" type="submit" class="btn btn-outline-success float-right">Registrar Persona <span class="fas fa-save"></span></button>
                                 </div>
                             </form>
                         </div>
@@ -93,9 +100,9 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-purple card-outline">
+                                <div class="card card-success card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Registrar Categorías</h3>
+                                        <h3 class="card-title">Registrar Personas</h3>
                                     </div>
                                     <div class="card-body">
                                         <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-file-signature"></i> Nuevo Registro</button>
@@ -103,31 +110,24 @@
                                 </div>
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-yellow card-outline">
+                                <div class="card card-primary card-outline">
                                     <div class="card-header">
-                                        <h3 class="card-title">Listado De Categorías</h3>
+                                        <h3 class="card-title">Listado De Personas</h3>
                                     </div>
                                     <!-- /.card-header -->
                                     <div class="card-body">
-                                        <table id="tablaCategoria" class="table table-responsive-lg table-bordered table-hover">
+                                        <table id="tablaPersonas" class="table table-responsive-lg table-bordered table-hover">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>Id</th>
-                                                    <th>Categoria</th>                                                
-                                                    <th>Estado</th>                                                
+                                                    <th>Nombres</th>                                                
+                                                    <th>Apellidos</th>                                                
+                                                    <th>Rol</th>                                                
                                                     <th>Acciones</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             </tbody>
-                                            <tfoot>
-                                                <tr class="text-center">
-                                                    <th>Id</th>
-                                                    <th>Categoría</th>
-                                                    <th>Estado</th> 
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </tfoot>
                                         </table>
                                     </div>
                                     <!-- /.card-body -->
@@ -150,7 +150,8 @@
 
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
-        <%@include file="plus/scripts.jsp" %>            
+        <%@include file="plus/scripts.jsp" %>
+        <script src="../js/scriptPersona.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>
