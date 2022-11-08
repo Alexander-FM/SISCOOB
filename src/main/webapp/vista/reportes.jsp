@@ -131,7 +131,7 @@
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %>
-        <script src="../js/scriptReportes.js" type="text/javascript"></script>
+        <script src="../js/scriptMostrarReportes.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

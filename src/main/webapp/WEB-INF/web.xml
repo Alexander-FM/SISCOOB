@@ -9,8 +9,8 @@
         <servlet-class>controller.srvPersona</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>srvFichasInternamiento</servlet-name>
-        <servlet-class>controller.srvFichasInternamiento</servlet-class>
+        <servlet-name>srvReportes</servlet-name>
+        <servlet-class>controller.srvReportes</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>srvUsuario</servlet-name>
@@ -25,8 +25,8 @@
         <url-pattern>/srvPersona</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>srvFichasInternamiento</servlet-name>
-        <url-pattern>/srvFichasInternamiento</url-pattern>
+        <servlet-name>srvReportes</servlet-name>
+        <url-pattern>/srvReportes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

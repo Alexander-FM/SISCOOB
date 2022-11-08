@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import com.google.gson.Gson;
@@ -19,10 +15,10 @@ import modelo.FichaDAO;
 
 /**
  *
- * @author Administrator
+ * @author Alexander Fuentes Medina
  */
-@WebServlet(name = "srvFichasInternamiento", urlPatterns = {"/srvFichasInternamiento"})
-public class srvFichasInternamiento extends HttpServlet {
+@WebServlet(name = "srvReportes", urlPatterns = {"/srvReportes"})
+public class srvReportes extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,15 +31,6 @@ public class srvFichasInternamiento extends HttpServlet {
                     break;
                 case "listarDetalleFichas":
                     listarDetalleFichas(request, response);
-                    break;
-                case "registrar":
-                    registrar(request, response);
-                    break;
-                case "editar":
-                    editar(request, response);
-                    break;
-                case "leer":
-                    leer(request, response);
                     break;
                 case "eliminar":
                     eliminar(request, response);
@@ -105,6 +92,7 @@ public class srvFichasInternamiento extends HttpServlet {
             this.printError(e.getMessage(), response);
         }
     }
+
     private void printError(String msjError, HttpServletResponse response) throws IOException {
         response.getWriter().print("{\"msj\": \"" + msjError + "\"}");
     }
@@ -133,26 +121,14 @@ public class srvFichasInternamiento extends HttpServlet {
         }
     }
 
-    private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void editar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void leer(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     private void eliminar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Ficha venta;
+        Ficha ficha;
         if (request.getParameter("id") != null) {
-            venta = new Ficha();
-            venta.setIdFicha(Integer.parseInt(request.getParameter("id")));
+            ficha = new Ficha();
+            ficha.setIdFicha(Integer.parseInt(request.getParameter("id")));
             try {
                 FichaDAO dao = new FichaDAO();
-                dao.anularFicha(venta);
+                dao.anularFicha(ficha);
                 this.printMessage("Se anulo la ficha de internamiento", true, response);
             } catch (Exception e) {
                 this.printMessage(e.getMessage(), false, response);

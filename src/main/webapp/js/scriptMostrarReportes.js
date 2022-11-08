@@ -1,4 +1,5 @@
 /* global moment */
+//Declaramos nuestras variables globlales
 var tabla = $("table#tablaFichas"),
         tablaDetalleFicha = $("table#tablaDetalleFicha"),
         mdlDetalleFicha = $("table#mdlDetalleFicha");
@@ -18,13 +19,14 @@ $(document).ready(function () {
     });
     listarFichas();
 });
+
 /**
  * Esta función retorna una lista de fichas de internamiento
  * @returns {List} retorna una lista.
  */
 function listarFichas() {
     $.ajax({
-        url: "../srvFichasInternamiento?accion=listarFichas",
+        url: "../srvReportes?accion=listarFichas",
         type: 'GET',
         dataType: 'JSON',
         success: function (data) {
@@ -32,7 +34,7 @@ function listarFichas() {
             for (var i = 0; i < data.length; i++) {
                 const date = moment(data[i].fechaCreacion).format('DD-MM-YYYY');
                 console.log(date);
-                tpl += "<tr>"
+                tpl += "<tr class=\"text-center\">"
                         + "<td>" + data[i].idFicha + "</td>"
                         + "<td>" + data[i].numFicha + "</td>"
                         + "<td>" + data[i].persona.nombres + ' ' + data[i].persona.apellidos + "</td>"
@@ -54,21 +56,20 @@ function listarFichas() {
         }
     });
 }
-
 /**
  * Este función muestra el detalle de la ficha de internamiento en un modal
  * @param idFicha
  */
 function listarDetalleFichas(idFicha) {
     $.ajax({
-        url: "../srvFichasInternamiento?accion=listarDetalleFichas",
+        url: "../srvReportes?accion=listarDetalleFichas",
         type: 'POST',
         dataType: 'json',
         data: {idFicha: idFicha},
         success: function (data) {
             let tablaA = '';
             data.forEach(df => {
-                tablaA += '<tr>';
+                tablaA += '<tr class=\"text-center\">';
                 tablaA += '<td>' + df.equipo.nombreBien + '</td>';
                 tablaA += '<td>' + df.marca.marca + '</td>';
                 tablaA += '</tr>';
@@ -98,7 +99,7 @@ function anularFicha(idFicha) {
             function (isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: "../srvFichasInternamiento?accion=eliminar",
+                        url: "../srvReportes?accion=eliminar",
                         type: 'POST',
                         dataType: 'json',
                         data: {id: idFicha},
