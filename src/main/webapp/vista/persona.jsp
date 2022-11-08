@@ -128,6 +128,15 @@
                                             </thead>
                                             <tbody>
                                             </tbody>
+                                            <tfoot>
+                                                <tr class="text-center">
+                                                    <th>Id</th>
+                                                    <th>Nombres</th>                                                
+                                                    <th>Apellidos</th>                                                
+                                                    <th>Rol</th>                                                
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                     <!-- /.card-body -->

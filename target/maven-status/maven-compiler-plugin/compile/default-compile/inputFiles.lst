@@ -4,11 +4,15 @@ C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Usua
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\config\Parametro.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\controller\srvEquipos.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\EquipoDAO.java
+C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\DetalleFicha.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\controller\srvPersona.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\PersonaDAO.java
+C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\controller\srvFichasInternamiento.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Persona.java
+C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Ficha.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Rol.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\config\Conexion.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Marca.java
+C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\FichaDAO.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\Equipo.java
 C:\Users\lfuenmed\Desktop\PROYECTO_INTEGRADO_I\SISCOOB\src\main\java\modelo\UsuarioDAO.java

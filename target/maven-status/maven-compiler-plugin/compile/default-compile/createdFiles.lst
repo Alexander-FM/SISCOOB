@@ -5,10 +5,14 @@ modelo\Rol.class
 controller\srvEquipos.class
 modelo\Equipo.class
 config\Conexion.class
+controller\srvFichasInternamiento.class
 modelo\UsuarioDAO.class
 modelo\EquipoDAO.class
+modelo\Ficha.class
 controller\srvUsuario.class
+modelo\FichaDAO.class
 controller\srvUsuario$1.class
+modelo\DetalleFicha.class
 modelo\Persona.class
 controller\srvPersona.class
 modelo\PersonaDAO.class

@@ -56,8 +56,8 @@
                                 <p>Equipos</p>
                             </a>
                         </li>                               
-                        <li class="nav-item">
-                            <a id="li_fichas" href="../vista/ficha.jsp" class="nav-link">
+                        <li id="li_fichas" class="nav-item">
+                            <a href="../vista/ficha.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fichas Técnicas</p>
                             </a>
@@ -76,8 +76,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview menu-close">
-                    <a href="#" class="nav-link">
+                <li id="li_grupo_reportes" class="nav-item has-treeview menu-close">
+                    <a id="a_reportes" href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>
                             Reportes
@@ -85,7 +85,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        <li id="li_mostrarReportes" class="nav-item">
                             <a href="../vista/reportes.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mostrar Reportes</p>

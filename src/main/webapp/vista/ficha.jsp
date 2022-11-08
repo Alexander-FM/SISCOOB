@@ -39,37 +39,64 @@
                 </div>
                 <!-- /.content-header -->
 
-                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="modal-lg">
-                    <input type="hidden" id="idCate" value="0">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 id="titulo" class="modal-title">Formulario De Registro</h4>
-                                <button onclick="cancelarPeticion();" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                <!-- Main content -->
+                <div class="content">
+                    <div class="container-fluid">
+                        <div class="card card-dark">
+                            <div class="card-header">
+                                <h3 class="card-title">Registrar Ficha de Internamiento</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                                </div> 
                             </div>
-                            <form class="form" id="frmCategorias">
-                                <div class="modal-body">
+                            <div class="card-body">
+                                <form class="form" id="frmCategorias">
+                                    <input type="hidden" id="idFicha" value="0">
                                     <div class="row">
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Nombre de la Categoria</label>
+                                                <label style="font-family: sans-serif">N.º Ficha</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text"><i class="fas fa-copyright"></i></span>
+                                                        <span class="input-group-text"><i class="fas fa-file-signature"></i></span>
                                                     </div>
-                                                    <input type="text" name="nombreCate" id="nombreCate" class="form-control" placeholder="Ingresar Nombre Categoria">
+                                                    <input type="text" name="numFicha" id="numFicha" class="form-control" placeholder="Ingresar N.º Ficha">
                                                 </div>
                                             </div>                                            
-                                        </div>                                  
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3"> 
                                             <div class="form-group">
-                                                <label style="font-family: sans-serif">Estado de la Categoria</label>
+                                                <label id="etiqueta">Seleccionar Técnico</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                    </div>
+                                                    <select id="cboPersonas" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
+                                                        <!-- Cargar desde la base de datos -->
+                                                        <option>Cargando.....</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Fecha de Registro</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
+                                                    </div>
+                                                    <input type="date" name="numFicha" id="numFicha" class="form-control" placeholder="Ingresar N.º Ficha">
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                                            <div class="form-group">
+                                                <label style="font-family: sans-serif">Estado</label>
                                                 <div class="input-group">                                             
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
-                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoCategoria" id="chkEstadoCategoria">
+                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoFicha" id="chkEstadoCategoria">
                                                         </span>
                                                     </div>
                                                     <label type="text" class="form-control">Activo / Inactivo</label>
@@ -77,63 +104,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer clearfix">                               
-                                    <button id="btn-save" type="submit" class="btn btn-outline-success float-right">Registrar Categoria <span class="fas fa-save"></span></button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
+                                    <button id="btn-save" type="submit" class="btn btn-outline-dark float-right">Registrar Ficha <span class="fas fa-save"></span></button>
+                                </form>
 
-                <!-- Main content -->
-                <div class="content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-purple card-outline">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Registrar Categorías</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-file-signature"></i> Nuevo Registro</button>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                <div class="card card-yellow card-outline">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Listado De Categorías</h3>
-                                    </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body">
-                                        <table id="tablaCategoria" class="table table-responsive-lg table-bordered table-hover">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th>Id</th>
-                                                    <th>Categoria</th>                                                
-                                                    <th>Estado</th>                                                
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr class="text-center">
-                                                    <th>Id</th>
-                                                    <th>Categoría</th>
-                                                    <th>Estado</th> 
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
-                                </div>
-                                <!-- /.card -->
-                            </div>   
                         </div>
                         <!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -143,14 +117,15 @@
             <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
-            <%@include file="plus/footer.jsp" %>            
+            <%@include file="plus/footer.jsp" %>   
             <!-- /.Main Footer -->
         </div>
         <!-- ./wrapper -->
 
         <!-- REQUIRED SCRIPTS -->
         <!-- scripts -->
-        <%@include file="plus/scripts.jsp" %>            
+        <%@include file="plus/scripts.jsp" %>   
+        <script src="../js/scriptFichas.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>
