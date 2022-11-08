@@ -88,7 +88,7 @@
                                                 <tr class="text-center">
                                                     <th>Id</th>
                                                     <th>N.º Ficha</th>                                                
-                                                    <th>Persona</th>                                                
+                                                    <th>Técnico</th>                                                
                                                     <th>Usuario</th>
                                                     <th>Fecha de Registro</th>
                                                     <th>Estado</th>
@@ -101,7 +101,7 @@
                                                 <tr class="text-center">
                                                     <th>Id</th>
                                                     <th>N.º Ficha</th>                                                
-                                                    <th>Persona</th>                                                
+                                                    <th>Técnico</th>                                                
                                                     <th>Usuario</th>
                                                     <th>Fecha de Registro</th>
                                                     <th>Estado</th>

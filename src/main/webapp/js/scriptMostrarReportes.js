@@ -39,10 +39,8 @@ function listarFichas() {
                         + "<td>" + data[i].numFicha + "</td>"
                         + "<td>" + data[i].persona.nombres + ' ' + data[i].persona.apellidos + "</td>"
                         + "<td>" + data[i].usuario.persona.nombres + ' ' + data[i].usuario.persona.apellidos + "</td>"
-                        + "<td>" + data[i].fechaCreacion + "</td>"
-                        + "<td>" + (data[i].estado === true
-                                ? '<span class =\"label label-success\">No Anulada</span>'
-                                : '<span class =\"label label-danger\">Anulada</span>')
+                        + "<td>" + date + "</td>"
+                        + "<td>" + (data[i].estado === true ? '<h5><span class =\"badge badge-success\">No Anulada</span></h5>' : '<h5><span class =\"badge badge-danger\">Anulada</span></h5>')
                         + "</td>"
                         + "<td nowrap><button title=\"Ver Detalle\" class=\"btn btn-info\">"
                         + "<span class=\"fa fa-eye\"></span></button> "
@@ -71,7 +69,7 @@ function listarDetalleFichas(idFicha) {
             data.forEach(df => {
                 tablaA += '<tr class=\"text-center\">';
                 tablaA += '<td>' + df.equipo.nombreBien + '</td>';
-                tablaA += '<td>' + df.marca.marca + '</td>';
+                tablaA += '<td>' + df.equipo.marca.marca + '</td>';
                 tablaA += '</tr>';
             });
             tablaDetalleFicha.find("tbody").html(tablaA);
