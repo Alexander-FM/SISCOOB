@@ -1,3 +1,6 @@
+var cboTecnicos = $("#cboTecnicos"), 
+        tablaBuscarEquipos = $("table#tablaBuscarEquipos"),
+        tablaEquiposAgregados = $("table#tablaEquiposAgregados");
 $(document).ready(function () {
     let li_grupo_registros = $('#li_grupo_registros');//id de nuestra etiqueta </li>
     li_grupo_registros.attr('class', 'nav-item has-treeview menu-open');//Hacemos que el menu se despliegue.
@@ -7,6 +10,62 @@ $(document).ready(function () {
     a.attr('class', 'nav-link active');//Aplicamos la clase 'active' a la etiquea a
     let tituloPag = $('#tituloPag');
     tituloPag.html('Registros | Fichas Internamiento');
+    listarTecnicos();
+    listarEquiposObsoletos();
 });
 
+/** Esta función lista las personas cuyo rol son tecnicas */
+function listarTecnicos() {
+    $.ajax({
+        url: "../srvFichas?accion=listarTecnicos",
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            var comboTecnicos = '';
+            for (var i = 0; i < data.length; i++) {
+                comboTecnicos += '<option value="' + data[i].idPersona + '">' + data[i].rol.rol + ' ' + data[i].nombres + ' ' + data[i].apellidos + '</option>';
+            }
+            cboTecnicos.html(comboTecnicos);
+        }
+    });
+}
+
+/**
+ * Esta función retorna una lista los equipos obsoletos
+ * @returns {List} retorna una lista.
+ */
+function listarEquiposObsoletos() {
+    $.ajax({
+        url: "../srvFichas?accion=listarEquiposObsoletos",
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+            let tpl = "";
+            for (var i = 0; i < data.length; i++) {
+                tpl += "<tr class=\"text-center\">"
+                        + "<td>" + data[i].idEquipo + "</td>"
+                        + "<td>" + data[i].nombreBien + "</td>"
+                        + "<td>" + data[i].marca.marca + "</td>"
+                        + "<td>" + data[i].estado.estado + "</td>"
+                        + "<td><a href=\"../srvFichas?accion=agregarEquiposFicha&cod=" + data[i].idEquipo + "\" class=\"btn btn-success\"><i class=\"fa fa-plus\"></i> Agregar</a></td>"
+                        + "</tr>";
+            }
+            tablaBuscarEquipos.find("tbody").html(tpl);
+            tablaBuscarEquipos.DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Ups! No se encontro nada",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No se encontraron registros",
+                    "infoFiltered": "(filtrado de _MAX_ total totales)",
+                    "search": "Buscar:",
+                    "paginate": {
+                        "next": "Anterior",
+                        "previous": "Siguiente"
+                    }
+                }
+            });
+        }
+    });
+}
 

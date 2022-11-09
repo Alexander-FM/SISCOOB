@@ -12,6 +12,10 @@
         <servlet-name>srvReportes</servlet-name>
         <servlet-class>controller.srvReportes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>srvFichas</servlet-name>
+        <servlet-class>controller.srvFichas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>srvUsuario</servlet-name>
         <url-pattern>/session</url-pattern>
@@ -27,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>srvReportes</servlet-name>
         <url-pattern>/srvReportes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>srvFichas</servlet-name>
+        <url-pattern>/srvFichas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

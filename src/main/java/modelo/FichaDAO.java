@@ -95,7 +95,7 @@ public class FichaDAO extends Conexion {
             throw e;
         }
     }
-    
+
     public List<FichaReporte> listarReporteFichas() throws Exception {
         List<FichaReporte> fichaRepo = null;
         FichaReporte fi;
@@ -119,7 +119,7 @@ public class FichaDAO extends Conexion {
                 fi.setEquipo(rs.getString("NOMBRE_BIEN"));
                 fi.setMarcaEquipo(rs.getString("MARCA"));
                 fi.setEstadoEquipo(rs.getString("ESTADO_EQUIPO"));
-                fi.setEstadoFicha(rs.getBoolean("ESTADO"));               
+                fi.setEstadoFicha(rs.getBoolean("ESTADO"));
                 fichaRepo.add(fi);
             }
             this.cerrar(false);
@@ -130,5 +130,87 @@ public class FichaDAO extends Conexion {
             this.cerrar(false);
         }
         return fichaRepo;
+    }
+
+    public List<Persona> listarTécnicos() throws Exception {
+        List<Persona> personas;
+        Persona person;
+        ResultSet rs;
+        String sql = "SELECT P.IDPERSONA, P.NOMBRES, P.APELLIDOS, R.ROL FROM persona P INNER JOIN ROL R "
+                + "ON P.IDROL = R.IDROL "
+                + "WHERE R.ROL = 'Técnico'";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            personas = new ArrayList<>();
+            while (rs.next() == true) {
+                person = new Persona();
+                person.setIdPersona(rs.getInt("IDPERSONA"));
+                person.setNombres(rs.getString("NOMBRES"));
+                person.setApellidos(rs.getString("APELLIDOS"));
+                person.setRol(new Rol());
+                person.getRol().setRol((rs.getString("ROL")));
+                personas.add(person);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return personas;
+    }
+
+    public List<Equipo> listarEquiposObsoletos() throws Exception {
+        List<Equipo> equipo;
+        Equipo equi;
+        ResultSet rs;
+        String sql = "SELECT E.IDEQUIPO, E.NOMBRE_BIEN, M.MARCA, ES.ESTADO FROM equipo E INNER JOIN marca M "
+                + "ON E.IDMARCA = M.IDMARCA INNER JOIN estado ES ON ES.IDESTADO = E.IDESTADO "
+                + "WHERE ES.ESTADO != 'Operativo sin observaciones' AND ES.ESTADO != 'Sin Revisar'";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            equipo = new ArrayList<>();
+            while (rs.next() == true) {
+                equi = new Equipo();
+                equi.setIdEquipo(rs.getInt("IDEQUIPO"));
+                equi.setNombreBien(rs.getString("NOMBRE_BIEN"));
+                equi.setMarca(new Marca());
+                equi.getMarca().setMarca((rs.getString("MARCA")));
+                equi.setEstado(new Estado());
+                equi.getEstado().setEstado(rs.getString("ESTADO"));
+                equipo.add(equi);
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return equipo;
+    }
+
+    public Equipo listarEquiposById(int id) {
+        String sql = "SELECT E.IDEQUIPO, E.NOMBRE_BIEN, M.MARCA, ES.ESTADO FROM equipo E INNER JOIN marca M "
+                + "ON E.IDMARCA = M.IDMARCA INNER JOIN estado ES ON ES.IDESTADO = E.IDESTADO "
+                + "WHERE E.IDEQUIPO = " + id;
+        ResultSet rs = null;
+        Equipo equi = null;
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            while (rs.next()) {
+                equi = new Equipo();
+                equi.setIdEquipo(rs.getInt("IDEQUIPO"));
+                equi.setNombreBien(rs.getString("NOMBRE_BIEN"));
+                equi.setMarca(new Marca());
+                equi.getMarca().setMarca((rs.getString("MARCA")));
+                equi.setEstado(new Estado());
+                equi.getEstado().setEstado(rs.getString("ESTADO"));
+            }
+            this.cerrar(false);
+        } catch (Exception e) {
+            System.out.println("Error al obtener añadir el producto al detalle de la ficha de internamiento" + e.getMessage());
+        }
+        return equi;
     }
 }
