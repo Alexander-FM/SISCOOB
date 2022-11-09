@@ -1,10 +1,16 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import modelo.DetalleFicha;
 import modelo.Ficha;
 import modelo.FichaDAO;
+import modelo.FichaReporte;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -34,6 +47,12 @@ public class srvReportes extends HttpServlet {
                     break;
                 case "eliminar":
                     eliminar(request, response);
+                    break;
+                case "listarReporteFichas":
+                    listarReporteFichas(response);
+                    break;
+                case "exportarReporteFichas":
+                    this.exportarReporteFichas(request, response);
                     break;
             }
         } else {
@@ -135,6 +154,68 @@ public class srvReportes extends HttpServlet {
             }
         } else {
             this.printMessage("No se obtuvo los parámetros", false, response);
+        }
+    }
+
+    private void exportarReporteFichas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ServletOutputStream out = response.getOutputStream();
+        try {
+            InputStream logoEmpresa = this.getServletConfig()
+                    .getServletContext()
+                    .getResourceAsStream("reportesJasper/img/onpe_logo.png"),
+                    logoFooter = this.getServletConfig()
+                            .getServletContext()
+                            .getResourceAsStream("reportesJasper/img/check.png"),
+                    reporteFichas = this.getServletConfig()
+                            .getServletContext()
+                            .getResourceAsStream("reportesJasper/reporteFichasSiscoob.jasper");
+            if (logoEmpresa != null && logoFooter != null && reporteFichas != null) {
+                String jsonLista = request.getParameter("lista");
+                Gson gson = new Gson();
+                List<FichaReporte> reporteFicha = new ArrayList<>();
+                List<FichaReporte> reporteFicha2 = new ArrayList<>();
+
+                reporteFicha.add(new FichaReporte());
+                reporteFicha2 = gson.fromJson(jsonLista, new TypeToken<List<FichaReporte>>() {
+                }.getType());
+                reporteFicha.addAll(reporteFicha2);
+
+                JasperReport report = (JasperReport) JRLoader.loadObject(reporteFichas);
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(reporteFicha.toArray());
+
+                Map<String, Object> parameters = new HashMap();
+                parameters.put("ds", ds);
+                parameters.put("logoEmpresa", logoEmpresa);
+                parameters.put("logoOpcional", logoFooter);
+                response.setContentType("application/pdf");
+                response.addHeader("Content-disposition", "inline; filename=ReporteFichasInternamiento.pdf");
+                JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);
+                JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+                out.flush();
+                out.close();
+            } else {
+                response.setContentType("text/plain");
+                out.println("no se pudo generar el reporte");
+                out.println("esto puede debrse a que la lista de datos no fue recibida o el archivo plantilla del reporte no se ha encontrado");
+                out.println("contacte a soporte");
+            }
+        } catch (Exception e) {
+            response.setContentType("text/plain");
+            out.print("ocurrió un error al intentar generar el reporte:" + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void listarReporteFichas(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        try {
+            FichaDAO dao = new FichaDAO();
+            List<FichaReporte> fr = dao.listarReporteFichas();
+            Gson gson = new Gson();
+            String json = gson.toJson(fr);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError(e.getMessage(), response);
         }
     }
 

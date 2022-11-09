@@ -95,4 +95,40 @@ public class FichaDAO extends Conexion {
             throw e;
         }
     }
+    
+    public List<FichaReporte> listarReporteFichas() throws Exception {
+        List<FichaReporte> fichaRepo = null;
+        FichaReporte fi;
+        ResultSet rs = null;
+        String sql = "SELECT F.NRO_FICHA, P.NOMBRES, P.APELLIDOS, EQUI.NOMBRE_BIEN, "
+                + "M.MARCA, E.ESTADO AS ESTADO_EQUIPO, F.ESTADO FROM ficha F "
+                + "INNER JOIN fichadetalle FD ON F.IDFICHA = FD.IDFICHA "
+                + "INNER JOIN equipo EQUI ON EQUI.IDEQUIPO = FD.IDEQUIPO "
+                + "INNER JOIN MARCA M ON EQUI.IDMARCA = M.IDMARCA "
+                + "INNER JOIN estado E ON E.IDESTADO = EQUI.IDESTADO "
+                + "INNER JOIN persona P ON P.IDPERSONA = F.IDPERSONA";
+
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            fichaRepo = new ArrayList<>();
+            while (rs.next() == true) {
+                fi = new FichaReporte();
+                fi.setNumFicha(rs.getString("NRO_FICHA"));
+                fi.setTecnico(rs.getString("NOMBRES") + " " + rs.getString("APELLIDOS"));
+                fi.setEquipo(rs.getString("NOMBRE_BIEN"));
+                fi.setMarcaEquipo(rs.getString("MARCA"));
+                fi.setEstadoEquipo(rs.getString("ESTADO_EQUIPO"));
+                fi.setEstadoFicha(rs.getBoolean("ESTADO"));               
+                fichaRepo.add(fi);
+            }
+            this.cerrar(false);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        } finally {
+            this.cerrar(false);
+        }
+        return fichaRepo;
+    }
 }

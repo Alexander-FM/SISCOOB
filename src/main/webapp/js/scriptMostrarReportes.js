@@ -2,7 +2,7 @@
 //Declaramos nuestras variables globlales
 var tabla = $("table#tablaFichas"),
         tablaDetalleFicha = $("table#tablaDetalleFicha"),
-        mdlDetalleFicha = $("table#mdlDetalleFicha");
+        mdlDetalleFicha = $("#mdlDetalleFicha");
 $(document).ready(function () {
     let li_grupo_registros = $('#li_grupo_reportes');//id de nuestra etiqueta </li>
     li_grupo_registros.attr('class', 'nav-item has-treeview menu-open');//Hacemos que el menu se despliegue.
@@ -110,4 +110,17 @@ function anularFicha(idFicha) {
                     swal("Cancelado", "Petición cancelada!", "error");
                 }
             });
+}
+
+function reporte(accion) {
+    $.get('../srvReportes?accion=listarReporteFichas', function (r) {
+        if (r) {
+            $('#accion').val(accion);
+            $('#lista').val(JSON.stringify(r));
+            $('#frmReporte').submit();
+        } else {
+            swal("Error", "el reporte no se ha generado debido a un error del servicio: " + r, "error");
+            //alert('el reporte no se ha generado debido a un error del servicio:' + r);
+        }
+    });
 }

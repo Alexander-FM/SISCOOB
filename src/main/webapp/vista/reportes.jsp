@@ -38,10 +38,10 @@
                     </div><!-- /.container-fluid -->
                 </div>
                 <!-- /.content-header -->
-                <!-- Modal Detalle Fichas de Internamiento -->
-                <div class="modal fade" id="mdlDetalleFicha">
-                    <div class="modal-dialog">
-                        <div class="modal-content" style="border-radius: 15px">
+                <div class="modal fade" data-backdrop="static" data-keyboard="false" id="mdlDetalleFicha">
+                    <input type="hidden" id="idPersona" value="0">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Detalle Ficha de Internamiento</h4>
                             </div>
@@ -63,13 +63,14 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+                            <div class="modal-footer clearfix">                               
+                                <button type="button" data-dismiss="modal" class="btn btn-danger">Cerrar</button>
                             </div>
                         </div>
+                        <!-- /.modal-content -->
                     </div>
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /. Modal Detalle Fichas de Internamiento -->
                 <!-- Main content -->
                 <div class="content">
                     <div class="container-fluid">
@@ -83,9 +84,9 @@
                                     <!-- /.card-header -->
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <form target="_blank" action="../srvFichasInternamiento" id="frmReporte" method="post">
+                                            <form target="_blank" action="../srvReportes" id="frmReporte" method="post">
                                                 <input type="hidden" name="accion" id="accion">
-                                                <button onclick="reporte('exportarReporte')" type="button" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-pdf"></i> Exportar PDF</button>
+                                                <button onclick="reporte('exportarReporteFichas')" type="button" class="btn btn-sm btn-outline-primary"><i class="fas fa-file-pdf"></i> Exportar PDF</button>
                                                 <input type="hidden" name="lista" id="lista">
                                             </form>
                                         </div>
