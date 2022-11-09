@@ -85,7 +85,7 @@
                                 <form class="form" id="frmFichas">
                                     <input type="hidden" id="idFicha" value="0">
                                     <div class="row">
-                                        <input type="text" value="${usuario.idUsuario}">
+                                        <input type="hidden" value="${usuario.idUsuario}">
                                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
                                                 <label style="font-family: sans-serif">N.º Ficha</label>

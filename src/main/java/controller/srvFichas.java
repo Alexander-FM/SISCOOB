@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import modelo.Equipo;
 import modelo.EquiposFichaInternamiento;
 import modelo.Ficha;
@@ -157,6 +158,8 @@ public class srvFichas extends HttpServlet {
                 efi.setEstado(e.getEstado().getEstado());
                 listaFichaInternamiento.add(efi);
             }
+            HttpSession session = request.getSession();
+            session.setAttribute("listaFichaInternamiento", listaFichaInternamiento);
             response.sendRedirect("/SISCOOB/vista/ficha.jsp");
         } catch (IOException e) {
             System.out.println("No se pudo agregar el equipo al detalle: " + e.getLocalizedMessage());
