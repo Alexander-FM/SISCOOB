@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,6 +45,9 @@ public class srvFichas extends HttpServlet {
                     break;
                 case "agregarEquiposFicha":
                     agregarEquiposFicha(request, response);
+                    break;
+                case "obtenerCorrelativo":
+                    obtenerCorrelativo(response);
                     break;
                 case "eliminarEquiposFicha":
                     eliminarEquiposFicha(request, response);
@@ -140,6 +144,23 @@ public class srvFichas extends HttpServlet {
             out.print(json);
         } catch (Exception e) {
             this.printError(e.getMessage(), response);
+        }
+    }
+
+    private void obtenerCorrelativo(HttpServletResponse response) throws IOException {
+        PrintWriter out = response.getWriter();
+        int correlativo = 0;
+        FichaDAO dao = null;
+        try {
+            dao = new FichaDAO();
+            correlativo = dao.obtenerCorrelativo();
+            HashMap<String, String> obj = new HashMap<>();
+            obj.put("numFicha", "F000" + (++correlativo));
+            Gson gson = new Gson();
+            String json = gson.toJson(obj);
+            out.print(json);
+        } catch (Exception e) {
+            this.printError("Ha ocurrido un error, lo solucionaremos pronto", response);
         }
     }
 

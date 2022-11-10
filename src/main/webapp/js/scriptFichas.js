@@ -13,6 +13,7 @@ $(document).ready(function () {
     tituloPag.html('Registros | Fichas Internamiento');
     listarTecnicos();
     listarEquiposObsoletos();
+    obtenerCorrelativo();
 });
 /** Esta función lista las personas cuyo rol son tecnicas */
 function listarTecnicos() {
@@ -88,6 +89,19 @@ function registrar() {
                 swal("Mensaje del Sistema", data.msj, "success");
             } else {
                 swal("Error", data.msj, "error");
+            }
+        }
+    });
+}
+
+function obtenerCorrelativo() {
+    $.ajax({
+        url: "../srvFichas?accion=obtenerCorrelativo",
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+            if (data) {
+                $('#numFicha').val(data.numFicha);
             }
         }
     });

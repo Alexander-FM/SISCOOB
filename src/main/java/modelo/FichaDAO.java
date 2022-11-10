@@ -246,4 +246,20 @@ public class FichaDAO extends Conexion {
             throw e;
         }
     }
+    
+    public int obtenerCorrelativo() throws Exception {
+        int correlativo = 0;
+        ResultSet rs = null;
+        String sql = "SELECT IDFICHA AS NUMERO FROM FICHA ORDER BY IDFICHA DESC LIMIT 1";
+        try {
+            this.conectar(false);
+            rs = this.ejecutarOrdenDatos(sql);
+            if(rs.next()){
+                correlativo = rs.getInt("NUMERO");
+            }
+        }catch(Exception e){
+            throw e;
+        }
+        return correlativo;
+    }
 }
