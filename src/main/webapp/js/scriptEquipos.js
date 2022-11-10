@@ -21,6 +21,7 @@ $(document).ready(function () {
     a.attr('class', 'nav-link active');//Aplicamos la clase 'active' a la etiquea a
     let tituloPag = $('#tituloPag');
     tituloPag.html('Registros | Equipos');
+    $('.select2').select2();
     //Desactivar Equipo
     tabla.on("click", ".btn-danger", function () {
         var id = $(this).parents("tr").children()[0].textContent;
@@ -218,8 +219,8 @@ function leerEquipo(idTemp) {
             const date = moment(data.fechaOc).format('YYYY-MM-DD');
             console.log(date);
             txtFechaOC.val(date);
-            cboEstado.val(data.estado.idEstado);
-            cboMarca.val(data.marca.idMarca);
+            cboEstado.val(data.estado.idEstado).trigger('change');
+            cboMarca.val(data.marca.idMarca).trigger('change');
             txtIdEquipo.val(data.idEquipo);
         }
     });

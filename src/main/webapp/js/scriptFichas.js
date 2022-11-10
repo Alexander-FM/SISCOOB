@@ -1,4 +1,4 @@
-/* global moment */
+/* global moment, alertify */
 
 var cboTecnicos = $("#cboTecnicos"),
         tablaBuscarEquipos = $("table#tablaBuscarEquipos"),
@@ -89,6 +89,7 @@ function registrar() {
         success: function (data) {
             if (data.rpt) {
                 swal("Mensaje del Sistema", data.msj, "success");
+                alertify.success('Ficha de Internamiento registrada correctamente');
             } else {
                 swal("Error", data.msj, "error");
             }

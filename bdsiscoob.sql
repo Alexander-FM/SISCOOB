@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2022 a las 15:52:15
+-- Tiempo de generación: 10-11-2022 a las 05:23:14
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.12
 
@@ -45,8 +45,13 @@ CREATE TABLE `equipo` (
 
 INSERT INTO `equipo` (`IDEQUIPO`, `CODIGO_PATRIMONIO`, `ORDEN_COMPRA`, `SERIE_NUMERO`, `NOMBRE_BIEN`, `IDESTADO`, `IDMARCA`, `FECHA_OC`, `FECHA_REGISTRO`) VALUES
 (1, '740892000336', '466-2010', 'DFXNJN1', 'SERVIDOR', 1, 4, '2022-10-08', '2022-10-22'),
-(2, '740892000370', '504-2010', 'JKLNQN1', 'SERVIDOR', 2, 3, '2022-10-22', '2022-10-22'),
-(7, '33832832832', '2983-24', 'DILKA8', 'SERVIDOR TOWER', 5, 4, '2022-10-23', '2022-10-29');
+(2, '740892000370', '504-2010', 'JKLNQN1', 'SERVIDOR', 2, 3, '2022-10-05', '2022-10-22'),
+(7, '33832832832', '2983-24', 'DILKA8', 'LAPTOP', 1, 1, '2022-10-23', '2022-10-29'),
+(10, '243523452345234', '567-654', '4JJN3ND', 'PROYECTOR', 4, 1, '2022-11-09', '2022-11-09'),
+(11, '3223232323', '983-2022', '4FO3HJF', 'PROYECTOR POWER', 2, 3, '2022-11-09', '2022-11-09'),
+(12, '1418418320', '342-2022', '3I0J32J', 'TELEVISOR 65\"', 4, 3, '2022-11-09', '2022-11-09'),
+(13, '425242452', '463-2021', '5645EE', 'TELEVISOR 75\"', 1, 3, '2022-11-09', '2022-11-09'),
+(14, '4343434353', '343-565', '894F87H', 'MICROFONO', 2, 3, '2022-11-09', '2022-11-09');
 
 -- --------------------------------------------------------
 
@@ -82,17 +87,8 @@ CREATE TABLE `ficha` (
   `IDPERSONA` int(11) NOT NULL,
   `IDUSUARIO` int(11) NOT NULL,
   `FECHA_CREACION` date NOT NULL,
-  `FECHA_ACTUALIZACION` date NOT NULL,
   `ESTADO` bit(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `ficha`
---
-
-INSERT INTO `ficha` (`IDFICHA`, `NRO_FICHA`, `IDPERSONA`, `IDUSUARIO`, `FECHA_CREACION`, `FECHA_ACTUALIZACION`, `ESTADO`) VALUES
-(1, 'F0001', 1, 1, '2022-10-22', '2022-10-22', b'1'),
-(2, 'F0002', 1, 1, '2022-10-22', '2022-10-22', b'1');
 
 -- --------------------------------------------------------
 
@@ -105,14 +101,6 @@ CREATE TABLE `fichadetalle` (
   `IDEQUIPO` int(11) NOT NULL,
   `IDFICHA` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `fichadetalle`
---
-
-INSERT INTO `fichadetalle` (`IDFICHADETALLE`, `IDEQUIPO`, `IDFICHA`) VALUES
-(1, 1, 1),
-(2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -153,9 +141,10 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`IDPERSONA`, `NOMBRES`, `APELLIDOS`, `IDROL`) VALUES
-(1, 'Esmeralda', 'Hernandez Torres', 6),
+(1, 'Esmeralda', 'Hernandez Torres', 3),
 (2, 'Alexander', 'Fuentes Medina', 8),
-(3, 'Carlos', 'Sanchez Oliva', 8);
+(3, 'Carlos', 'Sanchez Oliva', 8),
+(6, 'Rodrigo', 'Suarez Pastor', 6);
 
 -- --------------------------------------------------------
 
@@ -176,7 +165,6 @@ INSERT INTO `rol` (`IDROL`, `ROL`) VALUES
 (1, 'Registrador'),
 (2, 'Verificador'),
 (3, 'Consolidador'),
-(4, 'Etiquetador'),
 (5, 'Coordinador'),
 (6, 'Operador GAD'),
 (7, 'Operador GITE'),
@@ -201,7 +189,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`IDUSUARIO`, `USUARIO`, `CLAVE`, `ESTADO`, `IDPERSONA`) VALUES
-(1, 'admin', 'admin', b'1', 1);
+(1, 'admin', 'admin', b'1', 1),
+(5, 'admin', 'admin123', b'1', 6);
 
 --
 -- Índices para tablas volcadas
@@ -271,7 +260,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `IDEQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `IDEQUIPO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `estado`
@@ -283,13 +272,13 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT de la tabla `ficha`
 --
 ALTER TABLE `ficha`
-  MODIFY `IDFICHA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDFICHA` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `fichadetalle`
 --
 ALTER TABLE `fichadetalle`
-  MODIFY `IDFICHADETALLE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IDFICHADETALLE` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `marca`
@@ -301,7 +290,7 @@ ALTER TABLE `marca`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `IDPERSONA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IDPERSONA` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -313,7 +302,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IDUSUARIO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas

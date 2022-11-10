@@ -15,3 +15,5 @@
 <link rel="stylesheet" href="../dist/css/adminlte.min.css">
 <!-- Google Font: Source Sans Pro -->
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<script src="../plugins/alertifyjs/alertify.min.js" type="text/javascript"></script>
+<link href="../plugins/alertifyjs/css/alertify.min.css" rel="stylesheet" type="text/css"/>

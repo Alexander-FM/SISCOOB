@@ -75,7 +75,10 @@ public class PersonaDAO extends Conexion {
     public Persona leer(Persona persona) throws Exception {
         Persona per = null;
         ResultSet rs = null;
-        String sql = "SELECT P.IDPERSONA, P.NOMBRES, P.APELLIDOS, P.IDROL FROM persona P WHERE P.IDPERSONA = " + persona.getIdPersona();
+        String sql = "SELECT P.IDPERSONA, P.NOMBRES, P.APELLIDOS, "
+                + "R.IDROL FROM persona P INNER JOIN rol R "
+                + "ON P.IDROL = R.IDROL "
+                + "WHERE P.IDPERSONA = " + persona.getIdPersona();
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);

@@ -173,7 +173,7 @@ function leerPersonas(idTemp) {
         success: function (data) {
             txtNombrePersona.val(data.nombres);
             txtApellidoPersona.val(data.apellidos);
-            cboRol.val(data.rol.idRol);
+            cboRol.val(data.rol.idRol).trigger('change');
             txtIdPersona.val(data.idPersona);
         }
     });

@@ -17,10 +17,9 @@ public class FichaDAO extends Conexion {
         Ficha fi;
         ResultSet rs = null;
         String sql = "SELECT F.IDFICHA, F.NRO_FICHA, F.ESTADO, F.FECHA_CREACION, "
-                + "P.NOMBRES AS TECNICO_NOMBRE, P.APELLIDOS AS  TECNICO_APELLIDO, "
-                + "PER.NOMBRES  AS USUARIO_NOMBRE, PER.APELLIDOS  AS USUARIO_APELLIDO "
-                + "FROM ficha F INNER JOIN persona P ON F.IDPERSONA = P.IDPERSONA "
-                + "INNER JOIN usuario U INNER JOIN persona PER ON U.IDPERSONA = PER.IDPERSONA "
+                + "P.NOMBRES, P.APELLIDOS, PER.NOMBRES AS NOMBRE_TECNICO, PER.APELLIDOS AS APELLIDO_TECNICO "
+                + "FROM ficha F INNER JOIN usuario U on F.IDUSUARIO = U.IDUSUARIO INNER JOIN persona P ON P.IDPERSONA = U.IDPERSONA "
+                + "INNER JOIN persona PER ON F.IDPERSONA = PER.IDPERSONA "
                 + "GROUP BY F.IDFICHA "
                 + "ORDER BY F.FECHA_CREACION ASC";
 
@@ -35,12 +34,12 @@ public class FichaDAO extends Conexion {
                 fi.setEstado(rs.getBoolean("ESTADO"));
                 fi.setFechaCreacion(rs.getDate("FECHA_CREACION"));
                 fi.setPersona(Persona.builder()
-                        .nombres(rs.getString("TECNICO_NOMBRE"))
-                        .apellidos(rs.getString("TECNICO_APELLIDO"))
+                        .nombres(rs.getString("NOMBRE_TECNICO"))
+                        .apellidos(rs.getString("APELLIDO_TECNICO"))
                         .build());
                 fi.setUsuario(Usuario.builder()
-                        .persona(Persona.builder().nombres(rs.getString("USUARIO_NOMBRE"))
-                                .apellidos(rs.getString("USUARIO_APELLIDO"))
+                        .persona(Persona.builder().nombres(rs.getString("NOMBRES"))
+                                .apellidos(rs.getString("APELLIDOS"))
                                 .build())
                         .build());
                 fichas.add(fi);
@@ -246,7 +245,7 @@ public class FichaDAO extends Conexion {
             throw e;
         }
     }
-    
+
     public int obtenerCorrelativo() throws Exception {
         int correlativo = 0;
         ResultSet rs = null;
@@ -254,10 +253,10 @@ public class FichaDAO extends Conexion {
         try {
             this.conectar(false);
             rs = this.ejecutarOrdenDatos(sql);
-            if(rs.next()){
+            if (rs.next()) {
                 correlativo = rs.getInt("NUMERO");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             throw e;
         }
         return correlativo;
