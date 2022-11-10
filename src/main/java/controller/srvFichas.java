@@ -3,7 +3,9 @@ package controller;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -151,11 +153,14 @@ public class srvFichas extends HttpServlet {
         PrintWriter out = response.getWriter();
         int correlativo = 0;
         FichaDAO dao = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = sdf.format(new Date());
         try {
             dao = new FichaDAO();
             correlativo = dao.obtenerCorrelativo();
             HashMap<String, String> obj = new HashMap<>();
             obj.put("numFicha", "F000" + (++correlativo));
+            obj.put("fecha", fecha);
             Gson gson = new Gson();
             String json = gson.toJson(obj);
             out.print(json);

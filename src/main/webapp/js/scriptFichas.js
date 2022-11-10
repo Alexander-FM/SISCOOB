@@ -1,3 +1,5 @@
+/* global moment */
+
 var cboTecnicos = $("#cboTecnicos"),
         tablaBuscarEquipos = $("table#tablaBuscarEquipos"),
         tablaEquiposAgregados = $("table#tablaEquiposAgregados"),
@@ -102,6 +104,11 @@ function obtenerCorrelativo() {
         success: function (data) {
             if (data) {
                 $('#numFicha').val(data.numFicha);
+                $('#numFicha').attr('disabled', '');
+                const date = moment(data.fecha).format('YYYY-MM-DD');
+                console.log(date);
+                $('#fechaRegistroFicha').val(date);
+                $('#fechaRegistroFicha').attr('disabled', '');
             }
         }
     });
