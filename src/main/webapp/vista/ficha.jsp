@@ -85,7 +85,7 @@
                                 <form class="form" id="frmFichas">
                                     <input type="hidden" id="idFicha" value="0">
                                     <div class="row">
-                                        <input type="hidden" value="${usuario.idUsuario}">
+                                        <input type="hidden" id="idUsuario" value="${usuario.idUsuario}">
                                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
                                                 <label style="font-family: sans-serif">N.º Ficha</label>
@@ -93,7 +93,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-file-signature"></i></span>
                                                     </div>
-                                                    <input type="text" name="numFicha" id="numFicha" class="form-control" placeholder="Ingresar N.º Ficha">
+                                                    <input required="" type="text" name="numFicha" id="numFicha" class="form-control" placeholder="Ingresar N.º Ficha">
                                                 </div>
                                             </div>                                            
                                         </div>
@@ -104,7 +104,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
-                                                    <select id="cboTecnicos" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
+                                                    <select required="" id="cboTecnicos" style="width: 100%" class="select2 form-control" data-placeholder="Seleccionar">                                               
                                                         <!-- Cargar desde la base de datos -->
                                                         <option>Cargando.....</option>
                                                     </select> 
@@ -118,7 +118,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text"><i class="fas fa-calendar-day"></i></span>
                                                     </div>
-                                                    <input type="date" name="numFicha" id="numFicha" class="form-control" placeholder="Ingresar N.º Ficha">
+                                                    <input required="" type="date" name="fechaRegistroFicha" id="fechaRegistroFicha" class="form-control" placeholder="Ingresar N.º Ficha">
                                                 </div>
                                             </div>                                            
                                         </div>
@@ -128,7 +128,7 @@
                                                 <div class="input-group">                                             
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">
-                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoFicha" id="chkEstadoCategoria">
+                                                            <input type="checkbox" checked="" disabled="" name="chkEstadoFichaI" id="chkEstadoFichaI">
                                                         </span>
                                                     </div>
                                                     <label type="text" class="form-control">Activo / Inactivo</label>
@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-file-signature"></i> Buscar Equipos</button>
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modal-lg"><i class="fas fa-search"></i> Buscar Equipos</button>
                                         </div>
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                             <table id="tablaEquiposAgregados" style="margin-top: 15px;" class="table table-responsive-lg table-bordered table-hover">
@@ -168,9 +168,11 @@
                                             <!-- /.card -->
                                         </div> 
                                     </div>
-                                    <button id="btn-save" type="submit" class="btn btn-outline-dark float-right">Registrar Ficha <span class="fas fa-save"></span></button>
+                                    <div class="float-right">
+                                        <button onclick="registrar();" class="btn btn-outline-success">Registrar Ficha de Internamiento <i class="fas fa-save"></i></button>
+                                        <a href="../srvFichas?accion=cancelar" class="btn btn-outline-danger">Cancelar o Limpiar <i class="fas fa-ban"></i></a>
+                                    </div>
                                 </form>
-
                             </div>
                         </div>
                         <!-- /.row -->

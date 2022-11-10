@@ -1,19 +1,19 @@
-var cboTecnicos = $("#cboTecnicos"), 
+var cboTecnicos = $("#cboTecnicos"),
         tablaBuscarEquipos = $("table#tablaBuscarEquipos"),
-        tablaEquiposAgregados = $("table#tablaEquiposAgregados");
+        tablaEquiposAgregados = $("table#tablaEquiposAgregados"),
+        chkEstadoFichaI = $("#chkEstadoFichaI");
 $(document).ready(function () {
-    let li_grupo_registros = $('#li_grupo_registros');//id de nuestra etiqueta </li>
-    li_grupo_registros.attr('class', 'nav-item has-treeview menu-open');//Hacemos que el menu se despliegue.
+    let li_grupo_registros = $('#li_grupo_registros'); //id de nuestra etiqueta </li>
+    li_grupo_registros.attr('class', 'nav-item has-treeview menu-open'); //Hacemos que el menu se despliegue.
     let a_registros = $('#a_registros');
     a_registros.attr('class', 'nav-link active');
-    let a = $('#li_fichas').find('a');//id de nuestra etiqueta </li>, 
-    a.attr('class', 'nav-link active');//Aplicamos la clase 'active' a la etiquea a
+    let a = $('#li_fichas').find('a'); //id de nuestra etiqueta </li>, 
+    a.attr('class', 'nav-link active'); //Aplicamos la clase 'active' a la etiquea a
     let tituloPag = $('#tituloPag');
     tituloPag.html('Registros | Fichas Internamiento');
     listarTecnicos();
     listarEquiposObsoletos();
 });
-
 /** Esta función lista las personas cuyo rol son tecnicas */
 function listarTecnicos() {
     $.ajax({
@@ -65,6 +65,30 @@ function listarEquiposObsoletos() {
                     }
                 }
             });
+        }
+    });
+}
+
+function registrar() {
+    var json = {
+        idFicha: $('#idFicha').val(),
+        numFicha: $('#numFicha').val(),
+        persona: {idPersona: parseInt(cboTecnicos.val())},
+        usuario: {idUsuario: parseInt($('#idUsuario').val())},
+        fechaCreacion: $('#fechaRegistroFicha').val(),
+        estado: (chkEstadoFichaI.is(":checked"))
+    };
+    $.ajax({
+        url: "../srvFichas?accion=registrar",
+        type: 'POST',
+        dataType: 'json',
+        data: {ficha: JSON.stringify(json)},
+        success: function (data) {
+            if (data.rpt) {
+                swal("Mensaje del Sistema", data.msj, "success");
+            } else {
+                swal("Error", data.msj, "error");
+            }
         }
     });
 }

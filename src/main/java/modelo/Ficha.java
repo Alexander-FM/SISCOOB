@@ -1,6 +1,7 @@
 package modelo;
 
 import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,4 +22,5 @@ public class Ficha {
     private Usuario usuario;
     private Date fechaCreacion;
     private boolean estado;
+    private List<DetalleFicha> detalleFicha;
 }

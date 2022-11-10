@@ -2,6 +2,7 @@ package modelo;
 
 import config.Conexion;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -212,5 +213,37 @@ public class FichaDAO extends Conexion {
             System.out.println("Error al obtener añadir el producto al detalle de la ficha de internamiento" + e.getMessage());
         }
         return equi;
+    }
+
+    public void registrar(Ficha ficha) throws Exception {
+        ResultSet rs = null;
+        int codigoFicha;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha = sdf.format(ficha.getFechaCreacion());
+        String sql = "INSERT INTO Ficha(NRO_FICHA, IDPERSONA, IDUSUARIO, FECHA_CREACION, ESTADO)"
+                + "VALUES('" + ficha.getNumFicha() + "', '"
+                + ficha.getPersona().getIdPersona() + "', '"
+                + ficha.getUsuario().getIdUsuario() + "', '"
+                + fecha + "', "
+                + (ficha.isEstado() == true ? "1" : "0") + ")";
+
+        try {
+            this.conectar(true);
+            this.ejecutarOrden(sql);
+            rs = this.ejecutarOrdenDatos("SELECT @@IDENTITY AS Codigo"); //OBTENER EL CÓDIGO GENERADO
+            rs.next();
+            codigoFicha = rs.getInt("Codigo");
+            rs.close();
+            for (DetalleFicha detalle : ficha.getDetalleFicha()) {
+                sql = "INSERT INTO FichaDetalle(IDEQUIPO, IDFICHA) "
+                        + "VALUES(" + detalle.getEquipo().getIdEquipo() + ", "
+                        + codigoFicha + ")";
+                this.ejecutarOrden(sql);//INSERTA EL DETALLE DE LA FICHA DE INTERNAMIENTO
+            }
+            this.cerrar(true);
+        } catch (Exception e) {
+            this.cerrar(false);
+            throw e;
+        }
     }
 }

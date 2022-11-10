@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.DetalleFicha;
 import modelo.Equipo;
 import modelo.EquiposFichaInternamiento;
 import modelo.Ficha;
@@ -46,6 +47,9 @@ public class srvFichas extends HttpServlet {
                     break;
                 case "eliminarEquiposFicha":
                     eliminarEquiposFicha(request, response);
+                    break;
+                case "cancelar":
+                    cancelar(request, response);
                     break;
             }
         } else {
@@ -92,8 +96,38 @@ public class srvFichas extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void registrar(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void printMessage(String msj, boolean rpt, HttpServletResponse response) throws IOException {
+        response.getWriter().print("{\"rpt\": " + rpt + ", \"msj\": \"" + msj + "\"}");
+    }
+
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (request.getParameter("ficha") != null) {
+            Gson gson = new Gson();
+            Ficha ficha = gson.fromJson(request.getParameter("ficha"), Ficha.class);
+            try {
+                List<DetalleFicha> detalleFicha = new ArrayList<>();
+                for (int i = 0; i < listaFichaInternamiento.size(); i++) {
+                    DetalleFicha df = new DetalleFicha();
+                    Equipo equipo = new Equipo();
+                    equipo.setIdEquipo(listaFichaInternamiento.get(i).getIdEquipo());
+                    df.setEquipo(equipo);
+                    df.setFicha(ficha);
+                    detalleFicha.add(df);
+                }
+                ficha.setDetalleFicha(detalleFicha);
+                try {
+                    FichaDAO fichaDao = new FichaDAO();
+                    fichaDao.registrar(ficha);
+                    this.printMessage("Ficha de Internamiento registrada correctamente", true, response);
+                } catch (Exception e) {
+                    this.printMessage(e.getMessage(), false, response);
+                }
+            } catch (IOException e) {
+                this.printMessage(e.getMessage(), false, response);
+            }
+        } else {
+            this.printMessage("Rellene el formulario", false, response);
+        }
     }
 
     private void listarTecnicos(HttpServletResponse response) throws IOException {
@@ -167,12 +201,17 @@ public class srvFichas extends HttpServlet {
     }
 
     private void eliminarEquiposFicha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("id"));
         for (int i = 0; i < listaFichaInternamiento.size(); i++) {
             if (listaFichaInternamiento.get(i).getIdEquipo() == id) {
                 listaFichaInternamiento.remove(i);
             }
         }
+        response.sendRedirect("/SISCOOB/vista/ficha.jsp");
+    }
+
+    private void cancelar(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        listaFichaInternamiento = new ArrayList<>();
         response.sendRedirect("/SISCOOB/vista/ficha.jsp");
     }
 }
