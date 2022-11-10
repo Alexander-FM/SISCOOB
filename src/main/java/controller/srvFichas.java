@@ -238,6 +238,8 @@ public class srvFichas extends HttpServlet {
 
     private void cancelar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         listaFichaInternamiento = new ArrayList<>();
+        HttpSession session = request.getSession();
+        session.setAttribute("listaFichaInternamiento", listaFichaInternamiento);
         response.sendRedirect("/SISCOOB/vista/ficha.jsp");
     }
 }
