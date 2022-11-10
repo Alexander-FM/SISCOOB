@@ -2,12 +2,8 @@ package modelo;
 
 import lombok.Data;
 
-/**
- *
- * @author Alexander Fuentes Medina
- */
 @Data
-public class EquiposFichaInternamiento {
+public class EquipoFI {
     private int idEquipo;
     private String equipo;
     private String marca;

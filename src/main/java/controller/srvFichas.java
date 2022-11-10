@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.DetalleFicha;
 import modelo.Equipo;
-import modelo.EquiposFichaInternamiento;
+import modelo.EquipoFI;
 import modelo.Ficha;
 import modelo.FichaDAO;
 import modelo.Persona;
@@ -28,7 +28,7 @@ import modelo.Persona;
 @WebServlet(name = "srvFichas", urlPatterns = {"/srvFichas"})
 public class srvFichas extends HttpServlet {
 
-    List<EquiposFichaInternamiento> listaFichaInternamiento = new ArrayList<>();
+    List<EquipoFI> listaFichaInternamiento = new ArrayList<>();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -210,7 +210,7 @@ public class srvFichas extends HttpServlet {
                     //NO HACE FALTA TRATARLO.
                 } else {
                     Equipo e = dao.listarEquiposById(id);
-                    EquiposFichaInternamiento efi = new EquiposFichaInternamiento();
+                    EquipoFI efi = new EquipoFI();
                     efi.setIdEquipo(e.getIdEquipo());
                     efi.setEquipo(e.getNombreBien());
                     efi.setMarca(e.getMarca().getMarca());
@@ -219,7 +219,7 @@ public class srvFichas extends HttpServlet {
                 }
             } else {
                 Equipo e = dao.listarEquiposById(id);
-                EquiposFichaInternamiento efi = new EquiposFichaInternamiento();
+                EquipoFI efi = new EquipoFI();
                 efi.setIdEquipo(e.getIdEquipo());
                 efi.setEquipo(e.getNombreBien());
                 efi.setMarca(e.getMarca().getMarca());
