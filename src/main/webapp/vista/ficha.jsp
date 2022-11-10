@@ -85,6 +85,9 @@
                                 <form class="form" id="frmFichas">
                                     <input type="hidden" id="idFicha" value="0">
                                     <div class="row">
+                                        <p id="msjeServlet" class="alert alert-warning"><i class="fas fa-info-circle"></i> ${msje}</p>
+                                    </div>
+                                    <div class="row">
                                         <input type="hidden" id="idUsuario" value="${usuario.idUsuario}">
                                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
                                             <div class="form-group">
@@ -192,6 +195,7 @@
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %>   
         <script src="../js/scriptFichas.js" type="text/javascript"></script>
+        <script src="../js/scriptAcceso.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

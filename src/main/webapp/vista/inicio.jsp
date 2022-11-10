@@ -10,6 +10,9 @@
         <%@include file="plus/head.jsp" %>
     </head>
     <body class="hold-transition sidebar-mini">
+        <audio id="audio_noti1" style="display: none">
+            <source src="../songs/starSystem.mp3" type="audio/mp3">
+        </audio>
         <div class="wrapper">
             <!-- Navbar -->
             <%@include file="plus/menuSuperior.jsp" %>            
@@ -87,6 +90,7 @@
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %> 
         <script src="../js/scriptInicio.js" type="text/javascript"></script>
+        <script src="../js/scriptAcceso.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

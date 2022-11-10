@@ -161,6 +161,7 @@
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %>
         <script src="../js/scriptPersona.js" type="text/javascript"></script>
+        <script src="../js/scriptAcceso.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

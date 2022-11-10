@@ -16,6 +16,7 @@ $(document).ready(function () {
     listarTecnicos();
     listarEquiposObsoletos();
     obtenerCorrelativo();
+    mostrarMensajeServlet();
 });
 /** Esta función lista las personas cuyo rol son tecnicas */
 function listarTecnicos() {
@@ -84,19 +85,33 @@ function registrar() {
     $.ajax({
         url: "../srvFichas?accion=registrar",
         type: 'POST',
+        async: false,
         dataType: 'json',
         data: {ficha: JSON.stringify(json)},
         success: function (data) {
             if (data.rpt) {
-                swal("Mensaje del Sistema", data.msj, "success");
-                alertify.success('Ficha de Internamiento registrada correctamente');
+//                swal("Mensaje del Sistema", data.msj, "success");
             } else {
-                swal("Error", data.msj, "error");
+//                $('#msjeServlet').removeClass('alert alert-info');
+//                $('#msjeServlet').addClass('alert alert-danger');
+//               swal("Error", data.msj, "error");
+//                $('#msjeServlet').html(data.msj);
             }
         }
     });
 }
-
+//function mostrarMensajeServlet() {
+//    if (rpta !== null) {
+//        if (rpta) {
+//            $('#msjeServlet').addClass('alert alert-success');
+//            $('#msjeServlet').html("Ficha de Internamiento registrada correctamente");
+//        } else {
+//            $('#msjeServlet').removeClass('alert alert-success');
+//            $('#msjeServlet').addClass('alert alert-danger');
+//            $('#msjeServlet').html("El detalle de la ficha no puede estar vacío.");
+//        }
+//    }
+//}
 function obtenerCorrelativo() {
     $.ajax({
         url: "../srvFichas?accion=obtenerCorrelativo",

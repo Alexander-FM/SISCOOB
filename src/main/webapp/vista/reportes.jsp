@@ -139,6 +139,7 @@
         <!-- scripts -->
         <%@include file="plus/scripts.jsp" %>
         <script src="../js/scriptMostrarReportes.js"></script>
+        <script src="../js/scriptAcceso.js" type="text/javascript"></script>
         <!-- /.scripts -->
     </body>
 </html>

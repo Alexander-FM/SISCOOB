@@ -59,7 +59,7 @@ public class srvFichas extends HttpServlet {
                     break;
             }
         } else {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("error404.jsp");
         }
     }
 
@@ -112,21 +112,29 @@ public class srvFichas extends HttpServlet {
             Ficha ficha = gson.fromJson(request.getParameter("ficha"), Ficha.class);
             try {
                 List<DetalleFicha> detalleFicha = new ArrayList<>();
-                for (int i = 0; i < listaFichaInternamiento.size(); i++) {
-                    DetalleFicha df = new DetalleFicha();
-                    Equipo equipo = new Equipo();
-                    equipo.setIdEquipo(listaFichaInternamiento.get(i).getIdEquipo());
-                    df.setEquipo(equipo);
-                    df.setFicha(ficha);
-                    detalleFicha.add(df);
-                }
-                ficha.setDetalleFicha(detalleFicha);
-                try {
-                    FichaDAO fichaDao = new FichaDAO();
-                    fichaDao.registrar(ficha);
-                    this.printMessage("Ficha de Internamiento registrada correctamente", true, response);
-                } catch (Exception e) {
-                    this.printMessage(e.getMessage(), false, response);
+                if (listaFichaInternamiento != null && !listaFichaInternamiento.isEmpty()) {
+                    for (int i = 0; i < listaFichaInternamiento.size(); i++) {
+                        DetalleFicha df = new DetalleFicha();
+                        Equipo equipo = new Equipo();
+                        equipo.setIdEquipo(listaFichaInternamiento.get(i).getIdEquipo());
+                        df.setEquipo(equipo);
+                        df.setFicha(ficha);
+                        detalleFicha.add(df);
+                    }
+                    ficha.setDetalleFicha(detalleFicha);
+                    try {
+                        FichaDAO fichaDao = new FichaDAO();
+                        fichaDao.registrar(ficha);
+                        request.getSession().setAttribute("msje", "Ficha de Internamiento registrada correctamente");
+                        this.listaFichaInternamiento = new ArrayList<>();
+                        request.getSession().setAttribute("listaFichaInternamiento", listaFichaInternamiento);
+                        this.printMessage("Ficha de Internamiento registrada correctamente", true, response);
+                    } catch (Exception e) {
+                        this.printMessage(e.getMessage(), false, response);
+                    }
+                } else {
+                    request.getSession().setAttribute("msje", "El detalle de la ficha no puede estar vacío");
+                    this.printMessage("El detalle de la ficha no puede estar vacío", false, response);
                 }
             } catch (IOException e) {
                 this.printMessage(e.getMessage(), false, response);

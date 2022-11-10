@@ -7,6 +7,7 @@ $(document).ready(function () {
     a.attr('class', 'nav-link active');//Aplicamos la clase 'active' a la etiquea a
     let tituloPag = $('#tituloPag');
     tituloPag.html('Registros | Inicio');
+    document.getElementById('audio_noti1').play();
 });
 
 

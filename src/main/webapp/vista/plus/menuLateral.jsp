@@ -1,3 +1,4 @@
+<input type="hidden" id="rol_persona" value="${usuario.persona.rol.rol}">
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
