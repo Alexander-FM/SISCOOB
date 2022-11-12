@@ -58,7 +58,7 @@
                             </a>
                         </li>                               
                         <li id="li_fichas" class="nav-item">
-                            <a href="../vista/ficha.jsp" class="nav-link">
+                            <a href="../vista/mantenimiento.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fichas Técnicas</p>
                             </a>
@@ -87,7 +87,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li id="li_mostrarReportes" class="nav-item">
-                            <a href="../vista/reportes.jsp" class="nav-link">
+                            <a href="../vista/error404.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mostrar Reportes</p>
                             </a>
