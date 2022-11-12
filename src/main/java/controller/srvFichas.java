@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -125,15 +126,13 @@ public class srvFichas extends HttpServlet {
                     try {
                         FichaDAO fichaDao = new FichaDAO();
                         fichaDao.registrar(ficha);
-                        request.getSession().setAttribute("msje", "Ficha de Internamiento registrada correctamente");
                         this.listaFichaInternamiento = new ArrayList<>();
                         request.getSession().setAttribute("listaFichaInternamiento", listaFichaInternamiento);
-                        this.printMessage("Ficha de Internamiento registrada correctamente", true, response);
+                        this.printMessage("Ficha de Internamiento registrada correctamente", true, response);                       
                     } catch (Exception e) {
                         this.printMessage(e.getMessage(), false, response);
                     }
                 } else {
-                    request.getSession().setAttribute("msje", "El detalle de la ficha no puede estar vacío");
                     this.printMessage("El detalle de la ficha no puede estar vacío", false, response);
                 }
             } catch (IOException e) {
