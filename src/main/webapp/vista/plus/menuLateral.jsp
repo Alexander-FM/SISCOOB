@@ -58,7 +58,7 @@
                             </a>
                         </li>                               
                         <li id="li_fichas" class="nav-item">
-                            <a href="../vista/mantenimiento.jsp" class="nav-link">
+                            <a href="../vista/ficha.jsp" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Fichas Técnicas</p>
                             </a>
