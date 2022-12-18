@@ -95,11 +95,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Las contraseñas nos coinciden, intente otra vez!'
-            });
+            swal("Mensaje del Sistema", "Las contraseñas nos coinciden, intente otra vez!", "error");
             $('#pass1').val("");
             $('#pass2').val("");
         }

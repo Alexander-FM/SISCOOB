@@ -32,14 +32,14 @@ function listarFichas() {
         success: function (data) {
             let tpl = "";
             for (var i = 0; i < data.length; i++) {
-                const date = moment(data[i].fechaCreacion).format('DD-MM-YYYY');
+                const date = moment(data[i].fechaCreacion, 'll').format('L');// queda pendiente de solucionar
                 console.log(date);
                 tpl += "<tr class=\"text-center\">"
                         + "<td>" + data[i].idFicha + "</td>"
                         + "<td>" + data[i].numFicha + "</td>"
                         + "<td>" + data[i].persona.nombres + ' ' + data[i].persona.apellidos + "</td>"
                         + "<td>" + data[i].usuario.persona.nombres + ' ' + data[i].usuario.persona.apellidos + "</td>"
-                        + "<td>" + date + "</td>"
+                        + "<td>" + data[i].fechaCreacion + "</td>"
                         + "<td>" + (data[i].estado === true ? '<h5><span class =\"badge badge-success\">No Anulada</span></h5>' : '<h5><span class =\"badge badge-danger\">Anulada</span></h5>')
                         + "</td>"
                         + "<td nowrap><button title=\"Ver Detalle\" class=\"btn btn-info\">"
