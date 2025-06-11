@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import modelo.DetalleFicha;
 import modelo.Ficha;
 import modelo.FichaDAO;
@@ -162,7 +162,7 @@ public class srvReportes extends HttpServlet {
         try {
             InputStream logoEmpresa = this.getServletConfig()
                     .getServletContext()
-                    .getResourceAsStream("reportesJasper/img/onpe_logo.png"),
+                    .getResourceAsStream("reportesJasper/img/reparaPro.png"),
                     logoFooter = this.getServletConfig()
                             .getServletContext()
                             .getResourceAsStream("reportesJasper/img/check.png"),
@@ -187,6 +187,8 @@ public class srvReportes extends HttpServlet {
                 parameters.put("ds", ds);
                 parameters.put("logoEmpresa", logoEmpresa);
                 parameters.put("logoOpcional", logoFooter);
+                parameters.put("nameCompany", "ReparaPro");
+                parameters.put("documentCompany", "20963256984");
                 response.setContentType("application/pdf");
                 response.addHeader("Content-disposition", "inline; filename=ReporteFichasInternamiento.pdf");
                 JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameters, ds);

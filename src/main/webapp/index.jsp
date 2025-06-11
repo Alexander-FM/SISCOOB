@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <link rel="icon" href="img/perfil.png">
-        <title>SISCOOB | Login</title>
+        <title>ReparaPro | Login</title>
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="dist/css/adminlte.min.css">
@@ -19,14 +19,14 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="#"><b>SISCOOB </b></a>
+                <a href="#"><b>ReparaPro </b></a>
             </div>
             <!-- /.login-logo -->
             <div class="card card-primary card-outline">
                 <div class="card-body login-card-body">
                     <p class="login-box-msg">Identifíquese para iniciar sesión</p>
                     <div class="text-center">
-                        <img src="img/onpe_logo.png" width="200"> 
+                      <img src="img/reparaPro.png" width="200"> 
                     </div>
                     <br>       
                     <form id="frmLogin">

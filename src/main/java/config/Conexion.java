@@ -12,7 +12,7 @@ public class Conexion {
     Connection con;
     String url = "jdbc:mysql://localhost:3306/bdsiscoob";
     String user = "root";
-    String pass = "";
+    String pass = "root_password";
 
     public Connection getConnection() {
         try {
@@ -46,7 +46,7 @@ public class Conexion {
         ds.setServerName("localhost");
         ds.setPort(3306);
         ds.setDatabaseName("bdsiscoob");
-        con = ds.getConnection("root", "");
+        con = ds.getConnection("root", "root_password");
 
         if (wTransaccion == true) {
             this.con.setAutoCommit(false);
